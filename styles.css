@@ -900,3 +900,17 @@ main { max-width: 1180px; margin-inline: auto; padding: 0 var(--gutter); }
 .pj-grid .pj__media { height: clamp(220px, 25vw, 340px); }
 .pj-grid .pj:nth-child(5n+4) .pj__media,
 .pj-grid .pj:nth-child(5n+5) .pj__media { height: clamp(200px, 21vw, 280px); }
+
+/* ---------- "View all" button + all-work page ---------- */
+.proj-head { display: flex; align-items: flex-end; justify-content: space-between; gap: .75rem 1.5rem; flex-wrap: wrap; }
+.proj-head h2 { margin-bottom: 0; }
+.proj-head + .proj-intro { margin-top: .9rem; }
+.pill--line { color: var(--fg); border-color: var(--fg); }
+.pill--line:hover { color: var(--accent); border-color: var(--accent); background: transparent; }
+.allwork { padding-top: clamp(4.5rem, 4rem + 4vh, 6rem); }
+.allwork .pd__back { margin-bottom: 1.25rem; }
+
+/* card pills stay on a single line (extra pills are hidden by projects.js) */
+.pj-grid .pj__tags { flex-wrap: nowrap; overflow: hidden; }
+.pj-grid .pj__tags li { flex: none; white-space: nowrap; }
+.pj-grid .pj__tags li[hidden] { display: none; }

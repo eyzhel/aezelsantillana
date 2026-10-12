@@ -220,6 +220,21 @@ window.PROJECTS = [
     });
 
     mount.appendChild(grid);
+
+    /* Keep each card's pills on one line: hide any that don't fit. */
+    function fitTags() {
+      grid.querySelectorAll(".pj__tags").forEach(function (ul) {
+        var items = ul.children;
+        for (var i = 0; i < items.length; i++) items[i].hidden = false;
+        for (var j = items.length - 1; j > 0 && ul.scrollWidth > ul.clientWidth + 1; j--) {
+          items[j].hidden = true;
+        }
+      });
+    }
+    fitTags();
+    window.addEventListener("resize", fitTags, { passive: true });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTags);
+    window.addEventListener("load", fitTags);
   }
 
   /* ---------- detail page ---------- */
