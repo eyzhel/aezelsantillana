@@ -67,10 +67,19 @@ window.PROJECTS = [
       /* **double asterisks** mark the keywords that light up in the overview */
       overview: [
         "**Deductive Lab** helps IT departments build **standardized** Problem Identification processes, and puts them to work through customized **AI tools**, training programs and team **certification**.",
-        "I worked with Deductive Lab on the brand, and on the website and learning platform that carry it. The goal was to make a technical subject feel clear and approachable, for the IT managers who buy the training and the learners who take it.",
-        "It started with the logo and brand: a bright green on deep navy, with a pixel-built hexagon mark. From there I designed the landing page, the course page and the My Courses dashboard, where every learner sees their courses, hours, progress and certificates in one place."
+        "I worked with Deductive Lab on the brand, and on the website and learning platform that carry it. The goal was to make a technical subject feel clear and approachable, for the IT managers who buy the training and the learners who take it."
       ],
       closing: "One brand, carried from the first impression to the learner's dashboard.",
+      problem: {
+        eyebrow: "Before the design",
+        title: "The Problem",
+        lead: "IT teams each troubleshoot in their own way, so finding the real cause of an issue is slow and uneven. Deductive Lab teaches one **standardized** method, and it had to be taught clearly.",
+        points: [
+          { title: "No shared method", text: "Each person on an IT team has their own way of tracing a problem, so results change from one person to the next." },
+          { title: "A technical subject", text: "Troubleshooting training can feel dense. The brand and the platform had to make it feel clear and approachable." },
+          { title: "Two audiences", text: "IT managers buy the training and learners take it, so every screen has to work for both." }
+        ]
+      },
       process: {
         eyebrow: "How I worked",
         title: "Design Process",
@@ -172,6 +181,16 @@ window.PROJECTS = [
         "I designed the app's screens around that idea of trust: official box office listings, a **buyer guarantee** on every ticket, and seller profiles with badges, reviews and sales."
       ],
       closing: "One promise on every screen: a ticket that gets you in.",
+      problem: {
+        eyebrow: "Before the design",
+        title: "The Problem",
+        lead: "People feel unsafe buying tickets online, so buyers and sellers hesitate before a single ticket changes hands.",
+        points: [
+          { title: "Scams", text: "Reports of fake listings make buyers doubt every ticket they see." },
+          { title: "Invalid tickets", text: "A ticket that does not get you through the door is the worst outcome for a buyer." },
+          { title: "Sky-rocketing prices", text: "Prices that jump without explanation push people away from resale." }
+        ]
+      },
       process: {
         eyebrow: "How I worked",
         title: "Design Process",
@@ -537,6 +556,32 @@ window.PROJECTS = [
   }
 
   /* ---------- design process: numbered step cards ---------- */
+  /* "The Problem": a short framing statement plus up to three numbered points */
+  function renderProblem(pr) {
+    var sec = el("section", "pb");
+    var wrapEl = el("div", "cs-wrap");
+    if (pr.eyebrow) wrapEl.appendChild(el("p", "pb__eyebrow", pr.eyebrow));
+    wrapEl.appendChild(el("h2", "pb__h", pr.title || "The Problem"));
+    if (pr.lead) {
+      var lead = el("p", "pb__lead");
+      richText(lead, pr.lead);
+      wrapEl.appendChild(lead);
+    }
+    if (pr.points && pr.points.length) {
+      var ul = el("ul", "pb__list");
+      pr.points.forEach(function (pt, i) {
+        var li = el("li", "pb__item");
+        li.appendChild(el("span", "pb__num", String(i + 1).padStart(2, "0")));
+        li.appendChild(el("h3", null, pt.title));
+        li.appendChild(el("p", null, pt.text));
+        ul.appendChild(li);
+      });
+      wrapEl.appendChild(ul);
+    }
+    sec.appendChild(wrapEl);
+    return sec;
+  }
+
   function renderProcess(pr) {
     var sec = el("section", "dp");
     var wrap = el("div", "cs-wrap");
@@ -827,6 +872,7 @@ window.PROJECTS = [
     ov.appendChild(facts);
     wrap.appendChild(ov);
 
+    if (st.problem) wrap.appendChild(renderProblem(st.problem));
     if (st.brand) wrap.appendChild(renderBrand(st.brand));
     if (st.process) wrap.appendChild(renderProcess(st.process));
 

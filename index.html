@@ -23,7 +23,7 @@
     <a href="#about">About</a>
     <a href="#work">Career</a>
     <a href="#craft">Craft</a>
-    <a href="#contact">Contact</a>
+    <a class="nav__cta" href="#contact">Contact me</a>
   </div>
 </nav>
 
@@ -32,7 +32,7 @@
   <div class="hero__inner">
     <p class="hero__meta eyebrow">
       <span class="hero__dot" aria-hidden="true"></span>
-      Philippines (GMT+8) · Open to remote roles and freelance
+      Open to remote roles and freelance
     </p>
 
     <h1>
@@ -46,14 +46,12 @@
       </span>
     </h1>
 
-    <p class="hero__role">
-      Senior <b>UI/UX Designer</b>
+    <p class="hero__role hero__hello">
+      Manila-based senior UI/UX designer who blends <b>creativity, technology, <span class="hero__plain">and a little</span> <span style="white-space:nowrap">vibe-coding</span></b> into experiences that feel genuinely human.
     </p>
-    <p class="hero__tag">Thoughtful design. Seamless experiences. Meaningful impact.</p>
 
     <div class="hero__links">
       <a class="pill pill--solid" href="#projects">See selected work</a>
-      <a class="pill" href="#contact">Hire me</a>
       <a class="pill" href="Aezel-Santillana-CV.pdf" download="Aezel-Santillana-CV.pdf">Download CV</a>
     </div>
   </div>
@@ -85,12 +83,9 @@
   <section class="section rise" id="about">
     <p class="section__label eyebrow"><span>About</span></p>
     <div class="section__body">
-      <h2>Turning complex problems into experiences people understand.</h2>
+      <h2>Ten-plus years turning complex problems into simple designs people understand.</h2>
       <div class="prose">
-        <p class="lead">With over 10 years of experience combining brand strategy, interaction design, and visual design to build scalable products that balance user needs with business goals.</p>
-        <p>I'm a Senior Analyst in Experience Design at GrowthOps, delivering UX and UI for well-known regional brands. I run research, stakeholder workshops and user interviews, and build the design systems that keep products consistent.</p>
-        <p>I use AI tools, including Claude, for competitive research, A/B test variations and automating repetitive Figma work, so more of my time goes into design decisions.</p>
-        <p>I'm open to remote roles and freelance projects, and I'm happy to share my full portfolio with hiring teams on request.</p>
+        <p class="lead">Brand strategy, interaction design and visual design, built to scale and to balance what users need with what the business wants. From concept to implementation. From paper to people's hands.</p>
       </div>
     </div>
   </section>
@@ -208,7 +203,17 @@
       <span class="eyebrow">Contact</span>
       <h2>Tell me what you're building.</h2>
       <p class="contact__blurb">Hiring for a role, planning a project, or want to see my private case studies? Write a few lines and I'll come back to you.</p>
-      <a class="pill" href="https://www.linkedin.com/in/aezel-santillana-06a93380" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      <div class="contact__social">
+      <a class="pill pill--icon" href="https://www.linkedin.com/in/aezel-santillana-06a93380" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)" title="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+      </a>
+      <a class="pill pill--icon" href="https://www.behance.net/aezelcabrales1" target="_blank" rel="noopener noreferrer" aria-label="Behance (opens in a new tab)" title="Behance">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><text x="12" y="17" text-anchor="middle" font-family="Bricolage Grotesque, Arial, sans-serif" font-size="15" font-weight="800" fill="currentColor">B&#275;</text></svg>
+      </a>
+      <a class="pill pill--icon" href="https://www.upwork.com/freelancers/~0197da35db298e4c20?mp_source=share" target="_blank" rel="noopener noreferrer" aria-label="Upwork (opens in a new tab)" title="Upwork">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><text x="12" y="17" text-anchor="middle" font-family="Bricolage Grotesque, Arial, sans-serif" font-size="14" font-weight="800" fill="currentColor">Up</text></svg>
+      </a>
+      </div>
     </div>
 
     <div id="formWrap">
@@ -285,6 +290,21 @@
       li.style.setProperty("--d", Math.min(i, 12) * 85 + "ms");
     });
   });
+
+  /* ---- career roles ease in one at a time as each reaches the viewport (the list is tall, so each role is watched on its own) ---- */
+  var roles = document.querySelectorAll(".timeline > li.role");
+  if ("IntersectionObserver" in window && roles.length) {
+    var ioRoles = new IntersectionObserver(function (entries) {
+      var n = 0;
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.style.transitionDelay = (n++ * 110) + "ms";
+        e.target.classList.add("is-seen");
+        ioRoles.unobserve(e.target);
+      });
+    }, { threshold: .15, rootMargin: "0px 0px -6% 0px" });
+    roles.forEach(function (li) { li.classList.add("st-own"); ioRoles.observe(li); });
+  }
 
   /* ---- live layer dimensions: the name really is a selected layer ---- */
   var layer = document.querySelector(".layer");
