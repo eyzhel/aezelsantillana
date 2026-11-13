@@ -21,11 +21,18 @@
      summary   1–2 sentences. This is what shows on the card.
      image     Path to the screenshot, e.g. "images/my-project.png"
      cover     OPTIONAL. A different image for the card on the homepage grid.
+     banner    OPTIONAL. A wide image for the big featured carousel on the homepage (falls back to cover, then image).
+     still     OPTIONAL. A static 16:9 frame of the scene, used on the work page cards.
+     scene     OPTIONAL. An animated scene for the carousel: { type: "wall" | "phones" | "flow", cols, bg, tiles: [image paths] }. "wall"/"phones": camera flies in to the centre tile. "flow": a row of screens, camera pans across them one by one.
+     video     OPTIONAL. A short muted looping clip (e.g. "images/my-project.mp4") for the carousel; "banner" is its poster.
      alt       Describe the screenshot for screen readers and when images fail.
      tags      Short list of skills or deliverables.
      link      OPTIONAL. A live site URL — adds a "Visit live site" button
                on the detail page. Delete the line if there isn't one.
-     sections  The detail page body. Each { heading, body } becomes one
+     case      The project page body: headline, scope, hero, then overview,
+               challenge, approach and outcome, each { text: [paragraphs],
+               media: [images] }. Every project page uses these four.
+     sections  Older detail page body, used only to fill a missing case. Each { heading, body } becomes one
                block. Add or remove as many as you like.
      gallery   OPTIONAL. More images on the detail page. An item { video: true, src: "images/x.mp4", poster: "..." }
                plays a video; with src "" it shows a video placeholder.
@@ -39,13 +46,71 @@ window.PROJECTS = [
     slug: "deductive-lab",
     title: "Deductive Lab",
     client: "DeductiveLab",
-    role: "Logo Design, Branding, UI/UX Design",
+    year: "2024 - 2025",
+    role: "UI/UX Designer, Brand Designer",
     tools: "Figma, Adobe CC Apps",
     summary: "Logo, brand identity and the website and learning dashboard for a consulting firm that trains IT teams in standardized problem identification.",
     image: "images/deductive-lab-hero.webp",
-    cover: "images/deductive-lab-cover-laptop.webp",
+    cover: "images/deductive-lab-card.webp",
+    banner: "images/deductive-lab-banner.webp",
+    still: "images/deductive-lab-still.webp",
+    scene: {
+      type: "wall", cols: 3, bg: "radial-gradient(80% 80% at 30% 20%, #4DFFB0, #19E88F 55%, #0BC878)",
+      /* centre tile (5th) is the screen the camera flies in to */
+      tiles: ["images/scene/dl-3.webp", "images/scene/dl-6.webp", "images/scene/dl-2.webp",
+              "images/scene/dl-8.webp", "images/scene/dl-1.webp", "images/scene/dl-9.webp",
+              "images/scene/dl-5.webp", "images/scene/dl-7.webp", "images/scene/dl-4.webp"]
+    },
     alt: "Deductive Lab landing page: the headline 'Build High Performing Teams with Standardized Troubleshooting Training and AI-Driven Tools' above an illustration of two green laptops.",
     tags: ["Logo Design", "LMS Dashboard", "Web Design"],
+    /* Project page body: always Overview, Challenge, Approach, Outcome.
+       Each section has text (paragraphs) and optional media shown after it:
+       one image = full width, two = side by side, three = a row of three. */
+    case: {
+      headline: "Brand and website refresh for a consulting firm focused on IT troubleshooting training",
+      scope: "Logo, Branding, Web, LMS",
+      hero: { src: "images/deductive-lab-laptop.webp", alt: "The Deductive Lab landing page on a dark laptop, with the headline Build High Performing Teams with Standardized Troubleshooting Training and AI-Driven Tools." },
+      overview: {
+        text: [
+          "Deductive Lab is a consulting firm that trains IT teams in standardized troubleshooting. It offers courses, AI-driven tools and team certification through its own learning platform.",
+          "The website already existed, but it felt too generic and lacked a distinctive visual element that would give the brand more personality and make it easier to recognize.",
+          "My task was to improve the website visually and conceptually. I focused on creating a characteristic brand element that could give Deductive Lab its own personality. I also worked on improving the LMS structure and overall usability, making it easier for users to navigate, access learning materials, and move through the platform."
+        ],
+        /* before and after slider: set before.src and after.src to the two images
+           (same size works best). While a src is empty, a labelled placeholder shows. */
+        media: [{
+          before: { src: "images/deductive-lab-before.webp", alt: "The old Deductive Lab homepage: a white D logo and the line The Science of Logic in IT Troubleshooting over a photo of a city skyline." },
+          after: { src: "images/deductive-lab-after.webp", alt: "The redesigned Deductive Lab homepage: a green hexagon logo, the headline Build High Performing Teams with Standardized Troubleshooting Training and AI-Driven Tools, and an illustration of green laptops on dark navy." },
+          ratio: "3394 / 1610"
+        }]
+      },
+      challenge: {
+        text: [
+          "IT teams each troubleshoot in their own way, so finding the real cause of an issue is slow and uneven. Deductive Lab teaches one standardized method, and it had to be taught clearly.",
+          "Troubleshooting training can feel dense, so the brand and the platform had to make it feel clear and approachable.",
+          "There were also two audiences to design for. IT managers buy the training and learners take it, so every screen had to work for both."
+        ],
+        media: [
+          { src: "images/deductive-lab-my-courses.webp", alt: "Deductive Lab My Courses dashboard: learner stats for courses, hours, posts, certificates and messages, a course search and four course cards with progress bars." },
+          { src: "images/deductive-lab-progress.webp", alt: "Deductive Lab course progress screen: a progress bar, collapsible modules marked completed, and lessons tagged Video, PDF and Challenge." }
+        ]
+      },
+      approach: {
+        text: [
+          "I started with how IT teams handle tickets today and where the real problem gets missed.",
+          "For the brand I designed a hexagon holding a cluster of nodes, a mark for precision and connected thinking, in two colours, Swamp and Spring green. Montserrat carries the headings, buttons and body text, with Roboto Mono for small labels.",
+          "I then structured the site around the landing page, courses, pricing, FAQs and a free diagnostic, so a busy IT leader reaches the offer in a few clicks. The landing page, the course page and the My Courses dashboard are built from one set of components."
+        ],
+        media: [{ src: "images/deductive-lab-lesson.webp", alt: "Deductive Lab lesson player: course path on the left with a progress bar and lesson list, and the lesson video on the right." }]
+      },
+      outcome: {
+        text: [
+          "The result is one brand, carried from the first impression to the learner's dashboard.",
+          "I delivered the logo and brand identity, the landing page, the course page, checkout, and the My Courses dashboard, where each learner sees their courses, hours, progress and certificates, as high-fidelity screens ready to hand over for build."
+        ],
+        media: [{ src: "images/deductive-lab-hero.webp", alt: "Deductive Lab landing page hero with Join now and Try for free buttons above an illustration of two green laptops." }]
+      }
+    },
     sections: [
       {
         heading: "The brief",
@@ -154,24 +219,67 @@ window.PROJECTS = [
     client: "Dibsd",
     role: "UX/UI Design",
     summary: "A ticket resale app that lets people buy and sell tickets for the events they love with confidence.",
-    image: "images/dibsd-cover.webp",
-    cover: "images/dibsd-cover.webp",
+    image: "images/dibsd-card.webp",
+    cover: "images/dibsd-card.webp",
+    banner: "images/dibsd-banner.webp",
+    still: "images/dibsd-still.webp",
+    scene: {
+      type: "flow", bg: "radial-gradient(80% 80% at 30% 15%, #8BF0E0, #3CCBC3 55%, #1FA9AE)",
+      /* a row of screens in the order a buyer meets them; the camera pans across, one screen in focus at a time */
+      tiles: ["images/scene/db-home.webp", "images/scene/db-ticket.webp", "images/scene/db-account.webp"]
+    },
     hero: {
       word: "dibsd",
       phone: "images/dibsd-phone.webp",
       meta: [["Role", "UX/UI Design"], ["Service", "Mobile app"], ["Category", "Ticket marketplace"]],
-      /* faded event tiles behind the phone, like the reference layout */
-      events: [
-        { img: "images/dibsd-ev-yankees.webp", date: "Sat, July 30", title: "Royal at Yankees" },
-        { img: "images/dibsd-ev-woods.webp", date: "Sat, Aug 19", title: "Into the Woods" },
-        { img: "images/dibsd-ev-hadestown.webp", date: "Fri, Aug 19", title: "Hadestown" },
-        { img: "images/dibsd-ev-mcr.webp", date: "Sat, Aug 27", title: "My Chemical Romance" },
-        { img: "images/dibsd-ev-coldplay.webp", date: "Fri, Aug 11", title: "Coldplay - Music of Spheres" },
-        { img: "images/dibsd-ev-dream.webp", date: "Sun, Dec 25", title: "Dream Nation Festival" }
+      mark: "images/dibsd-mark.webp",
+      phoneAlt: "Dibsd ticket details screen for Moulin Rouge! The Musical: row D seat 186 at $56.00 each, with the official box office and buyer protection notes and Chat Seller and Buy Ticket buttons.",
+      /* the two tickets either side of the phone */
+      tickets: [
+        { img: "images/dibsd-ev-hadestown.webp", title: "Hadestown", place: "Bronx, NY", tag: "Official Box Office", date: "Fri, Aug 19", type: "Standard", price: "$300" },
+        { img: "images/dibsd-ev-mcr.webp", title: "My Chemical Romance", place: "Brooklyn, NY", tag: "Buyer Guaranteed", date: "Sat, Aug 27", type: "Standard", price: "$320" }
       ]
     },
     alt: "Dibsd event tickets marketplace: three phone screens showing trending events, a Moulin Rouge ticket page with seat, price and buyer protection, and a seller account with listings and badges.",
     tags: ["Mobile App", "UX Research", "UI Design", "Marketplace"],
+    case: {
+      headline: "Designing trust into a ticket resale app",
+      scope: "Mobile app",
+      hero: { src: "images/dibsd-card.webp", alt: "Three Dibsd app screens on phones: trending events, a Moulin Rouge ticket page and a seller account." },
+      overview: {
+        text: [
+          "Dibsd is a ticket resale app where people buy and sell tickets for the events they love, with confidence.",
+          "I designed the app's screens around one idea, trust: official box office listings, a buyer guarantee on every ticket, and seller profiles with badges, reviews and sales."
+        ],
+        media: [{ src: "images/dibsd-cover.webp", alt: "Two Dibsd phone screens, the Moulin Rouge ticket details and the home screen, on a dark background." }]
+      },
+      challenge: {
+        text: [
+          "People feel unsafe buying tickets online. There are reports of scams, invalid tickets and sky-rocketing prices, so buyers and sellers hesitate before a single ticket changes hands.",
+          "Fake listings make buyers doubt every ticket they see. A ticket that does not get you through the door is the worst outcome for a buyer, and prices that jump without explanation push people away from resale.",
+          "The goal was to make sure every ticket bought on Dibsd results in a valid entry to the event."
+        ],
+        media: [
+          { src: "images/dibsd-home.webp", alt: "Dibsd home screen: a search bar, trending events with date, venue and from-price, category chips and an event list." },
+          { src: "images/dibsd-ticket.webp", alt: "Dibsd ticket details for Moulin Rouge! The Musical: row D seat 186 at $56.00, an Official Box Office note, a Buyer Guaranteed Protected note, and Chat Seller and Buy Ticket buttons." },
+          { src: "images/dibsd-account.webp", alt: "Dibsd seller account: rating, reviews, sales and followers, Trusted Seller and Quick Responder badges, and Listings, Sold and Reviews tabs." }
+        ]
+      },
+      approach: {
+        text: [
+          "I started with why people hesitate to buy tickets online, then set one goal: every ticket bought on Dibsd results in a valid entry. From there I explored ways to build trust into the app and designed the search, ticket details and seller account screens around it.",
+          "The home screen leads with search, trending events and category chips. The ticket screen puts row, seat and price first, with the Official Box Office and Buyer Guaranteed notes just above Chat Seller and Buy Ticket. Seller profiles show rating, reviews, sales and badges like Trusted Seller and Quick Responder, so a buyer can check a seller before buying.",
+          "The app works within Dibsd's brand: teal for buttons, prices and active states, white space for calm, and a few playful accents in yellow, blue, green and orange."
+        ],
+        media: [{ src: "images/dibsd-still.webp", alt: "Three Dibsd screens side by side on a teal background, the ticket details screen in focus." }]
+      },
+      outcome: {
+        text: [
+          "One promise on every screen: a ticket that gets you in.",
+          "I delivered the home and search, ticket details and seller account screens, each one built to answer a buyer's doubts before they reach the Buy Ticket button."
+        ]
+      }
+    },
     tools: "Figma",
     study: {
       eyebrow: "Case study",
@@ -369,6 +477,166 @@ window.PROJECTS = [
     return n;
   }
 
+  /* ---------- homepage featured carousel: one big animated banner per project ---------- */
+  function renderCarousel(mount) {
+    var list = projects.filter(function (p) { return (p.image || "").indexOf("images/placeholder-") !== 0; });
+    if (!list.length) { renderGrid(mount); return; }
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+    var total = list.length;
+    var SLIDE = 9000;
+
+    var box = el("div", "fc");
+    box.setAttribute("role", "region");
+    box.setAttribute("aria-roledescription", "carousel");
+    box.setAttribute("aria-label", "Featured work");
+    var stage = el("div", "fc__stage");
+    var view = el("div", "fc__view");
+    view.setAttribute("tabindex", "0");
+    var slides = [], walls = [], videos = [];
+
+    list.forEach(function (p, i) {
+      var s = el("a", "fc__slide");
+      s.href = "project.html?p=" + encodeURIComponent(p.slug);
+      s.setAttribute("role", "group");
+      s.setAttribute("aria-roledescription", "slide");
+      s.setAttribute("aria-label", (i + 1) + " of " + total + ": " + p.title);
+      var poster = p.banner || p.cover || p.image;
+      var sc = p.scene;
+      if (p.video) {
+        /* a real clip, when there is one, plays only while its slide is showing */
+        var v = el("video", "fc__media");
+        v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
+        v.preload = "metadata"; v.poster = poster; v.src = p.video;
+        v.setAttribute("aria-hidden", "true");
+        videos[i] = v;
+        s.appendChild(v);
+      } else {
+        var im = el("img", "fc__media");
+        im.src = poster; im.alt = ""; im.decoding = "async";
+        if (i) im.loading = "lazy";
+        s.appendChild(im);
+      }
+      if (sc && !reduce) {
+        /* animated wall of the project's own screens: the camera starts tilted over the wall, then flies in to one screen */
+        var scene = el("span", "fc__scene fc__scene--" + sc.type);
+        scene.setAttribute("aria-hidden", "true");
+        scene.style.background = sc.bg;
+        var wall = el("span", "fc__wall");
+        wall.style.setProperty("--cols", sc.cols);
+        sc.tiles.forEach(function (src, k) {
+          var t = el("span", "fc__tile");
+          var ti = el("img"); ti.src = src; ti.alt = ""; ti.decoding = "async"; if (i) ti.loading = "lazy";
+          t.appendChild(ti);
+          wall.appendChild(t);
+        });
+        scene.appendChild(wall);
+        s.appendChild(scene);
+        walls[i] = wall;
+      }
+      s.appendChild(el("span", "fc__shade"));
+      var cap = el("span", "fc__cap");
+      cap.appendChild(el("span", "fc__title", p.title));
+      if (p.summary) cap.appendChild(el("span", "fc__sum", p.summary));
+      var more = el("span", "fc__go", "View case study ");
+      more.appendChild(el("i", null, "\u2192"));
+      cap.appendChild(more);
+      s.appendChild(cap);
+      view.appendChild(s);
+      slides.push(s);
+    });
+    stage.appendChild(view);
+
+    var count = el("span", "fc__count");
+    count.setAttribute("aria-hidden", "true");
+    stage.appendChild(count);
+    var bar = el("span", "fc__bar");
+    bar.setAttribute("aria-hidden", "true");
+    var fill = el("i");
+    bar.appendChild(fill);
+    stage.appendChild(bar);
+
+    var idx = -1, hold = 0, elapsed = 0, over = false;
+    function setCount(n) {
+      count.textContent = "";
+      count.appendChild(el("b", "fc__n", pad(n + 1)));
+      count.appendChild(document.createTextNode(" / " + pad(total)));
+    }
+    function show(n) {
+      n = (n + total) % total;
+      if (n === idx) return;
+      idx = n;
+      elapsed = 0;
+      fill.style.transform = "scaleX(0)";
+      setCount(idx);
+      slides.forEach(function (s, i) {
+        s.classList.toggle("is-active", i === idx);
+        if (i === idx) s.removeAttribute("tabindex"); else s.setAttribute("tabindex", "-1");
+      });
+      var w = walls[idx];
+      if (w) {   /* restart the camera move */
+        var parts = [w].concat(Array.prototype.slice.call(w.children));
+        parts.forEach(function (n) { n.style.animation = "none"; });
+        void w.offsetWidth;
+        parts.forEach(function (n) { n.style.animation = ""; });
+      }
+      videos.forEach(function (v, i) { if (!v) return; if (i === idx) { v.currentTime = 0; var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } else v.pause(); });
+    }
+    function user(d) { hold = Date.now() + 20000; show(idx + d); }
+    show(0);
+
+    if (total > 1) {
+      [["prev", "Previous project", -1], ["next", "Next project", 1]].forEach(function (d) {
+        var b = el("button", "fc__nav fc__nav--" + d[0]);
+        b.type = "button";
+        b.setAttribute("aria-label", d[1]);
+        b.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="' + (d[2] < 0 ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7") + '" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        b.addEventListener("click", function () { user(d[2]); });
+        stage.appendChild(b);
+      });
+      view.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight") { e.preventDefault(); user(1); }
+        if (e.key === "ArrowLeft") { e.preventDefault(); user(-1); }
+      });
+      /* swipe */
+      var sx = 0, sy = 0, dragged = false;
+      view.addEventListener("pointerdown", function (e) { sx = e.clientX; sy = e.clientY; dragged = false; hold = Date.now() + 20000; });
+      view.addEventListener("pointerup", function (e) {
+        var dx = e.clientX - sx, dy = e.clientY - sy;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4) { dragged = true; user(dx < 0 ? 1 : -1); }
+      });
+      view.addEventListener("click", function (e) { if (dragged) { e.preventDefault(); dragged = false; } }, true);
+      stage.addEventListener("mouseenter", function () { over = true; });
+      stage.addEventListener("mouseleave", function () { over = false; });
+      stage.addEventListener("focusin", function () { over = true; });
+      stage.addEventListener("focusout", function () { over = false; });
+      if (!reduce) {
+        /* a thin progress line fills while the slide waits, and dims when paused */
+        setInterval(function () {
+          var r = box.getBoundingClientRect();
+          var seen = !(r.bottom < 0 || r.top > window.innerHeight);
+          var paused = over || document.hidden || Date.now() < hold || !seen;
+          box.classList.toggle("is-paused", paused);
+          if (paused) return;
+          elapsed += 100;
+          fill.style.transform = "scaleX(" + Math.min(1, elapsed / SLIDE).toFixed(3) + ")";
+          if (elapsed >= SLIDE) show(idx + 1);
+        }, 100);
+      }
+    }
+    /* the whole banner settles in the first time it scrolls into view */
+    box.classList.add("fc--pre");
+    if ("IntersectionObserver" in window && !reduce) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { box.classList.add("fc--in"); io.disconnect(); } });
+      }, { threshold: .2 });
+      io.observe(box);
+    } else { box.classList.add("fc--in"); }
+    box.appendChild(stage);
+    mount.textContent = "";
+    mount.appendChild(box);
+  }
+
   /* ---------- homepage cards ---------- */
   var activeFit = null;
 
@@ -399,7 +667,8 @@ window.PROJECTS = [
       media.setAttribute("aria-hidden", "true");
 
       var img = el("img");
-      img.src = p.cover || p.image;
+      img.src = p.still || p.cover || p.image;
+      if (p.still) card.className += " pj--banner";
       img.alt = "";
       img.loading = "lazy";
       img.decoding = "async";
@@ -430,7 +699,7 @@ window.PROJECTS = [
       /* Figma-style collaborator cursor that follows the pointer over a card */
       var chip = el("span", "pj__cursor");
       chip.setAttribute("aria-hidden", "true");
-      chip.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16"><path d="M1.5 1.2l5.4 13.4 2.1-5.6 5.6-2.1z" fill="#FF5470" stroke="#14070A" stroke-width="1.1" stroke-linejoin="round"/></svg><b>View project</b>';
+      chip.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16"><path d="M1.5 1.2l5.4 13.4 2.1-5.6 5.6-2.1z" fill="#E1275B" stroke="#0A0A0A" stroke-width="1.1" stroke-linejoin="round"/></svg><b>View project</b>';
       card.appendChild(chip);
       card.addEventListener("pointermove", function (e) {
         if (e.pointerType !== "mouse") return;
@@ -947,6 +1216,55 @@ window.PROJECTS = [
   function renderHero(p) {
     var h = p.hero;
     var box = el("figure", "dh");
+    var stage = el("div", "dh__stage");
+    var art = el("div", "dh__art");
+    art.setAttribute("aria-hidden", "true");
+    art.appendChild(el("div", "dh__word", h.word));
+    art.appendChild(el("i", "dh__stripes"));
+    art.appendChild(el("i", "dh__ring"));
+    (h.tickets || []).forEach(function (t, i) {
+      var tk = el("div", "dh__tk " + (i ? "dh__tk--r" : "dh__tk--l"));
+      var ph = el("div", "dh__tkph");
+      var im = el("img"); im.src = t.img; im.alt = ""; im.loading = "lazy";
+      ph.appendChild(im);
+      ph.appendChild(el("span", "dh__tktag", t.tag));
+      ph.appendChild(el("h3", null, t.title));
+      ph.appendChild(el("span", "dh__tkloc", t.place));
+      tk.appendChild(ph);
+      var stub = el("div", "dh__stub");
+      var row = el("div", "dh__row");
+      [["Date", t.date], ["Ticket", t.type], ["Price", t.price]].forEach(function (f) {
+        var d = el("div");
+        d.appendChild(el("small", null, f[0]));
+        d.appendChild(el("b", null, f[1]));
+        row.appendChild(d);
+      });
+      stub.appendChild(row);
+      stub.appendChild(el("div", "dh__bar"));
+      tk.appendChild(stub);
+      art.appendChild(tk);
+    });
+    var a1 = el("div", "dh__pill dh__pill--a", "EVENTS");
+    var a2 = el("div", "dh__pill dh__pill--b", "TICKETS");
+    art.appendChild(a1); art.appendChild(a2);
+    var mark = el("div", "dh__mark");
+    var mi = el("img"); mi.src = h.mark; mi.alt = "";
+    mark.appendChild(mi);
+    art.appendChild(mark);
+    /* glossy accents in the brand's yellow, sky blue and green */
+    var star = el("span", "dh__gloss dh__star");
+    star.innerHTML = '<svg viewBox="0 0 250 250"><defs><radialGradient id="dhY" cx="34%" cy="26%" r="80%"><stop offset="0" stop-color="#FFF1A6"/><stop offset=".38" stop-color="#FCC21A"/><stop offset="1" stop-color="#E08F00"/></radialGradient></defs><polygon points="125,34 151,92 214,98 166,140 181,203 125,170 69,203 84,140 36,98 99,92" fill="url(#dhY)" stroke="url(#dhY)" stroke-width="34" stroke-linejoin="round"/><ellipse cx="96" cy="76" rx="30" ry="15" fill="#fff" opacity=".55" transform="rotate(-28 96 76)"/></svg>';
+    var heart = el("span", "dh__gloss dh__heart");
+    heart.innerHTML = '<svg viewBox="0 0 210 190"><defs><radialGradient id="dhB" cx="32%" cy="24%" r="85%"><stop offset="0" stop-color="#B8EEFF"/><stop offset=".4" stop-color="#17B9EE"/><stop offset="1" stop-color="#0079B0"/></radialGradient></defs><path d="M105 172C40 126 22 92 22 62 22 36 42 20 66 20c16 0 31 9 39 24 8-15 23-24 39-24 24 0 44 16 44 42 0 30-18 64-83 110z" fill="url(#dhB)"/><ellipse cx="70" cy="52" rx="22" ry="12" fill="#fff" opacity=".6" transform="rotate(-35 70 52)"/></svg>';
+    var arrow = el("span", "dh__gloss dh__arrow");
+    arrow.innerHTML = '<svg viewBox="0 0 190 200"><defs><linearGradient id="dhG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E4FFB4"/><stop offset=".4" stop-color="#8DC440"/><stop offset="1" stop-color="#4E8A15"/></linearGradient></defs><path d="M40 22L158 78 98 98 78 160z" fill="url(#dhG)" stroke="url(#dhG)" stroke-width="26" stroke-linejoin="round"/><path d="M62 52L118 78" stroke="#fff" stroke-opacity=".55" stroke-width="8" stroke-linecap="round"/></svg>';
+    art.appendChild(star); art.appendChild(heart); art.appendChild(arrow);
+    stage.appendChild(art);
+    var ph = el("img", "dh__phone");
+    ph.src = h.phone;
+    ph.alt = h.phoneAlt || p.alt || p.title;
+    stage.appendChild(ph);
+    box.appendChild(stage);
     var meta = el("div", "dh__meta");
     h.meta.forEach(function (m) {
       var d = el("div");
@@ -955,30 +1273,139 @@ window.PROJECTS = [
       meta.appendChild(d);
     });
     box.appendChild(meta);
-    var word = el("div", "dh__word", h.word);
-    word.setAttribute("aria-hidden", "true");
-    box.appendChild(word);
-    var evs = el("ul", "dh__events");
-    evs.setAttribute("aria-hidden", "true");
-    (h.events || []).forEach(function (ev) {
-      var li = el("li");
-      li.appendChild(el("span", "dh__date", ev.date));
-      var im = el("img"); im.src = ev.img; im.alt = ""; im.loading = "lazy";
-      li.appendChild(im);
-      li.appendChild(el("b", null, ev.title));
-      evs.appendChild(li);
-    });
-    box.appendChild(evs);
-    ["dh__sun", "dh__dots", "dh__stripes", "dh__tri"].forEach(function (c) {
-      var d = el("i", "dh__deco " + c);
-      d.setAttribute("aria-hidden", "true");
-      box.appendChild(d);
-    });
-    var ph = el("img", "dh__phone");
-    ph.src = h.phone;
-    ph.alt = p.alt || p.title;
-    box.appendChild(ph);
     return box;
+  }
+
+  /* ---------- project page: Overview, Challenge, Approach, Outcome ---------- */
+  var CASE_PARTS = [["overview", "Overview"], ["challenge", "Challenge"], ["approach", "Approach"], ["outcome", "Outcome"]];
+  /* before and after slider: drag the handle, or use the arrow keys */
+  function caseCompare(m) {
+    var f = el("figure", "cx__fig ba cx-rise");
+    if (m.ratio) f.style.aspectRatio = m.ratio;
+    function layer(side, d, label) {
+      var l = el("div", "ba__layer ba__layer--" + side);
+      if (d && d.src) {
+        var im = el("img");
+        im.src = d.src; im.alt = d.alt || label; im.loading = "lazy"; im.decoding = "async"; im.draggable = false;
+        l.appendChild(im);
+      } else {
+        l.classList.add("ba__layer--ph");
+        l.appendChild(el("span", "mono", label + " image"));
+      }
+      l.appendChild(el("span", "ba__tag mono", label));
+      return l;
+    }
+    f.appendChild(layer("after", m.after, "After"));
+    f.appendChild(layer("before", m.before, "Before"));
+    var bar = el("span", "ba__bar");
+    bar.setAttribute("aria-hidden", "true");
+    bar.appendChild(el("span", "ba__knob", "‹ ›"));
+    f.appendChild(bar);
+    var r = el("input", "ba__range");
+    r.type = "range"; r.min = 0; r.max = 100; r.value = 50; r.step = "any";
+    r.setAttribute("aria-label", "Drag to compare before and after");
+    function set() { f.style.setProperty("--pos", r.value + "%"); }
+    r.addEventListener("input", set);
+    set();
+    f.appendChild(r);
+    return f;
+  }
+
+  function caseMedia(list) {
+    var box = el("div", "cx__media cx__media--" + Math.min(list.length, 3));
+    list.forEach(function (m) {
+      if (m.before || m.after) { box.appendChild(caseCompare(m)); return; }
+      var f = el("figure", "cx__fig cx-rise");
+      var im = el("img");
+      im.src = m.src; im.alt = m.alt || ""; im.loading = "lazy"; im.decoding = "async";
+      f.appendChild(im);
+      box.appendChild(f);
+    });
+    return box;
+  }
+  function renderCase(mount, p) {
+    var c = p.case || {};
+    var main = mount.parentNode;
+    if (main) main.classList.add("cx");
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var wrap = el("article", "cx__in");
+
+    var head = el("header", "cx__head");
+    head.appendChild(el("p", "cx__eyebrow mono", p.client || p.title));
+    head.appendChild(el("h1", "cx__h", c.headline || p.title));
+    wrap.appendChild(head);
+
+    var meta = el("dl", "cx__meta");
+    [["Scope", c.scope || (p.tags || []).join(", ")], ["Role", p.role], ["Client", p.client], ["Year", p.year]].forEach(function (m) {
+      if (!m[1]) return;
+      var d = el("div", "cx__metai");
+      d.appendChild(el("dt", "mono", m[0]));
+      d.appendChild(el("dd", null, m[1]));
+      meta.appendChild(d);
+    });
+    wrap.appendChild(meta);
+
+    var hero = c.hero || { src: p.cover || p.image, alt: p.alt || p.title };
+    var hf = el("figure", "cx__hero");
+    var hi = el("img");
+    hi.src = hero.src; hi.alt = hero.alt || ""; hi.decoding = "async";
+    hf.appendChild(hi);
+    wrap.appendChild(hf);
+
+    /* fill a missing part from the older "sections" list, else a prompt */
+    var old = p.sections || [];
+    CASE_PARTS.forEach(function (part, i) {
+      var data = c[part[0]] || {};
+      var text = data.text;
+      if (!text || !text.length) {
+        var o = old[i === 0 ? 0 : i === 3 ? old.length - 1 : 1];
+        text = [o && i !== 1 ? o.body : "Add the " + part[1].toLowerCase() + " for this project."];
+      }
+      var sec = el("section", "cx__sec");
+      sec.id = part[0];
+      sec.appendChild(el("h2", "cx__label cx-rise", part[1]));
+      var body = el("div", "cx__body cx-rise");
+      text.forEach(function (t) { body.appendChild(el("p", null, t.replace(/\*\*/g, ""))); });
+      sec.appendChild(body);
+      wrap.appendChild(sec);
+      if (data.media && data.media.length) wrap.appendChild(caseMedia(data.media));
+    });
+
+    /* more projects */
+    var others = projects.filter(function (x) { return x !== p && !/^project-/.test(x.slug) && x.title !== "Project name"; }).slice(0, 3);
+    var more = el("section", "cx__more");
+    more.appendChild(el("h2", "cx__moreh", "More projects"));
+    var row = el("div", "cx__morerow");
+    for (var k = 0; k < 3; k++) {
+      var o2 = others[k];
+      var a = el(o2 ? "a" : "div", "cx__card" + (o2 ? "" : " cx__card--soon"));
+      var media = el("span", "cx__cardimg");
+      if (o2) {
+        a.href = "project.html?p=" + encodeURIComponent(o2.slug);
+        var ci = el("img"); ci.src = o2.cover || o2.image; ci.alt = ""; ci.loading = "lazy";
+        media.appendChild(ci);
+      } else {
+        media.appendChild(el("span", "mono", "Soon"));
+      }
+      a.appendChild(media);
+      var line = el("span", "cx__cardrow");
+      line.appendChild(el("span", "cx__cardt", o2 ? o2.title : "Project name"));
+      line.appendChild(el("span", "cx__cardy mono", o2 ? (o2.year || "") : ""));
+      a.appendChild(line);
+      a.appendChild(el("span", "cx__cards mono", o2 ? ((o2.case && o2.case.scope) || (o2.tags || []).slice(0, 2).join(", ")) : "Coming soon"));
+      row.appendChild(a);
+    }
+    more.appendChild(row);
+    wrap.appendChild(more);
+    mount.appendChild(wrap);
+
+    if (!reduce && "IntersectionObserver" in window) {
+      document.documentElement.classList.add("cx-anim");
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+      }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+      wrap.querySelectorAll(".cx-rise").forEach(function (n) { io.observe(n); });
+    }
   }
 
   function renderDetail(mount) {
@@ -986,7 +1413,7 @@ window.PROJECTS = [
     var p = projects.filter(function (x) { return x.slug === slug; })[0];
 
     if (!p) {
-      document.title = "Project not found — Aezel Santillana";
+      document.title = "Project not found · Aezel Santillana";
       var miss = el("div", "pd__missing");
       miss.appendChild(el("h1", null, "That project isn't here."));
       miss.appendChild(el("p", null,
@@ -999,9 +1426,10 @@ window.PROJECTS = [
       return;
     }
 
-    document.title = p.title + " — Aezel Santillana";
+    document.title = p.title + " · Aezel Santillana";
 
-    if (p.study) { renderStudy(mount, p); return; }
+    /* every project page uses the Overview / Challenge / Approach / Outcome layout */
+    renderCase(mount, p); return;
 
     var crumb = el("a", "pd__back", "← All projects");
     crumb.href = "index.html#projects";
@@ -1090,6 +1518,8 @@ window.PROJECTS = [
   function boot() {
     window.addEventListener("resize", function () { if (activeFit) activeFit(); }, { passive: true });
     window.addEventListener("load", function () { if (activeFit) activeFit(); });
+    var carousel = document.getElementById("featuredCarousel");
+    if (carousel) renderCarousel(carousel);
     var grid = document.getElementById("projectGrid");
     if (grid) renderGrid(grid);
     var filters = document.getElementById("projectFilters");
