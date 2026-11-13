@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Passion projects · Aezel Santillana</title>
+  <meta name="description" content="Passion projects by Aezel Santillana: experiments, side projects and vibe-coded builds.">
+  <meta name="theme-color" content="#0A0A0A">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="lux">
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav" id="nav" data-shown="true" aria-label="Sections">
+  <a class="nav__name" href="index.html"><img class="nav__logo" src="images/logo.svg" alt="" width="40" height="19"><span class="nav__wordmark">Aezel Santillana</span></a>
+  <div class="nav__links">
+    <a href="work.html"><i>01</i> Work</a>
+    <a href="passion.html" aria-current="page"><i>02</i> Passion projects</a>
+    <a href="about.html"><i>03</i> About</a>
+    <a class="nav__cta" href="index.html#contact">Contact me</a>
+  </div>
+</nav>
+
+<main id="main" class="lx pp-page">
+  <section class="blk" id="passion">
+    <header class="sh">
+      <span class="sh__n">(02)</span>
+      <h1 class="sh__t">Passion projects</h1>
+      <span class="sh__d mono">Scroll <span aria-hidden="true">→</span></span>
+    </header>
+    <p class="sh__lead">My own experiments, side projects and vibe-coded builds. The place where strategy, brand and code meet.</p>
+    <div class="pp" id="passionRow" tabindex="0" aria-label="Passion projects, scrolls sideways"></div>
+  </section>
+</main>
+
+<footer class="lf">
+  <div class="lf__in mono">
+    <span>© <span id="yr">2026</span> Aezel Santillana · UI/UX Designer</span>
+    <span>Manila <span id="mnl"></span></span>
+    <span class="lf__links">
+      <a href="https://www.linkedin.com/in/aezel-santillana-06a93380" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      <a href="https://www.behance.net/aezelcabrales1" target="_blank" rel="noopener noreferrer">Behance ↗</a>
+      <a href="https://www.upwork.com/freelancers/~0197da35db298e4c20?mp_source=share" target="_blank" rel="noopener noreferrer">Upwork ↗</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var nav = document.getElementById("nav");
+  function navState() { nav.classList.toggle("is-solid", window.scrollY > 40); }
+  window.addEventListener("scroll", navState, { passive: true }); navState();
+  var yr = document.getElementById("yr"); if (yr) yr.textContent = new Date().getFullYear();
+  var mnl = document.getElementById("mnl");
+  function tick() { try { mnl.textContent = new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Manila", hour: "2-digit", minute: "2-digit" }); } catch (e) {} }
+  if (mnl) { tick(); setInterval(tick, 30000); }
+  /* passion projects: add one object per project. Empty list shows "coming soon" frames. */
+  var PASSION = [
+    /* { title: "Project name", line: "One line about it.", kind: "Web App", href: "https://…", img: "images/…webp" }, */
+  ];
+  var row = document.getElementById("passionRow");
+  if (row) {
+    var esc = function (t) { var d = document.createElement("div"); d.textContent = t || ""; return d.innerHTML; };
+    if (PASSION.length) {
+      row.innerHTML = PASSION.map(function (p, i) {
+        return '<a class="pp__card" href="' + esc(p.href) + '" target="_blank" rel="noopener noreferrer">' +
+          '<span class="pp__media">' + (p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : '') + '</span>' +
+          '<span class="pp__meta mono"><span>' + String(i + 1).padStart(2, "0") + '</span><span>' + esc(p.kind) + '</span></span>' +
+          '<span class="pp__title">' + esc(p.title) + ' <i aria-hidden="true">↗</i></span>' +
+          '<span class="pp__line">' + esc(p.line) + '</span></a>';
+      }).join("");
+    } else {
+      row.innerHTML = ["Web App", "AI Prototype", "Brand Identity"].map(function (k, i) {
+        return '<div class="pp__card pp__card--soon"><span class="pp__media"><span class="pp__soon mono">In the lab</span></span>' +
+          '<span class="pp__meta mono"><span>0' + (i + 1) + '</span><span>' + k + '</span></span>' +
+          '<span class="pp__title">Coming soon</span></div>';
+      }).join("");
+    }
+  }
+})();
+</script>
+<script src="fx.js" defer></script>
+</body>
+</html>

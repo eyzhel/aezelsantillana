@@ -7,44 +7,136 @@
   <meta name="description" content="All projects by Aezel Santillana, Senior UI/UX Designer.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="lux">
 
 <a class="skip" href="#main">Skip to content</a>
 
 <nav class="nav" id="nav" data-shown="true" aria-label="Sections">
-  <a class="nav__name" href="index.html">Aezel Santillana</a>
+  <a class="nav__name" href="index.html"><img class="nav__logo" src="images/logo.svg" alt="" width="40" height="19"><span class="nav__wordmark">Aezel Santillana</span></a>
   <div class="nav__links">
-    <a href="work.html" aria-current="page">Work</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#work">Career</a>
-    <a href="index.html#craft">Craft</a>
+    <a href="work.html" aria-current="page"><i>01</i> Work</a>
+    <a href="passion.html"><i>02</i> Passion projects</a>
+    <a href="about.html"><i>03</i> About</a>
     <a class="nav__cta" href="index.html#contact">Contact me</a>
   </div>
 </nav>
 
-<main id="main" class="allwork">
-  <section class="section" id="projects">
-    <p class="section__label eyebrow"><span>All work</span></p>
-    <div class="section__body">
-      <a class="pd__back" href="index.html#projects">← Back to featured work</a>
-      <h2>All projects.</h2>
-      <p class="proj-intro">Each case study covers the brief, my process and the outcome.</p>
-      <div id="projectFilters" class="pj-filters" role="group" aria-label="Filter projects by category"></div>
-      <div id="projectGrid"></div>
+<main id="main" class="lx wk">
+  <header class="wk__head">
+    <h1 class="wk__h">Brands, products and interfaces <em class="hl">I&rsquo;ve helped bring to life</em>.</h1>
+    <p class="wk__lead">Apps, websites, dashboards and brand identities I've designed for clients around the world.</p>
+    <div class="wk__filters" id="workFilters" role="group" aria-label="Filter projects">
+      <button type="button" class="wk__tag is-on" data-f="all" aria-pressed="true">All</button>
+      <button type="button" class="wk__tag" data-f="uiux" aria-pressed="false">UI/UX</button>
+      <button type="button" class="wk__tag" data-f="brand" aria-pressed="false">Branding</button>
     </div>
+  </header>
+
+  <section class="wk__grid" aria-label="Projects">
+    <div class="fw" id="workGrid"></div>
+    <p class="wk__empty mono" id="workEmpty" hidden>No projects in this category yet.</p>
   </section>
+
+  <div class="private">
+    <div>
+      <p class="private__tag mono">Private · under confidentiality</p>
+      <h3>Confidential projects, shared on request.</h3>
+      <p>Some of my projects are under confidentiality, so they aren't published here. I walk through them in interviews, or send a password-protected link on request.</p>
+    </div>
+    <a class="box" href="index.html#contact">Request access <span aria-hidden="true">→</span></a>
+  </div>
 </main>
 
-<footer class="pd-foot">
-  <div class="pd-foot__in">
-    <span>Aezel Santillana · UI/UX Designer · Manila</span>
-    <a href="mailto:hey@aezelsantillana.com">hey@aezelsantillana.com</a>
+<footer class="lf">
+  <div class="lf__in mono">
+    <span>© <span id="yr">2026</span> Aezel Santillana · UI/UX Designer</span>
+    <span>Manila <span id="mnl"></span></span>
+    <span class="lf__links">
+      <a href="https://www.linkedin.com/in/aezel-santillana-06a93380" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      <a href="https://www.behance.net/aezelcabrales1" target="_blank" rel="noopener noreferrer">Behance ↗</a>
+      <a href="https://www.upwork.com/freelancers/~0197da35db298e4c20?mp_source=share" target="_blank" rel="noopener noreferrer">Upwork ↗</a>
+    </span>
   </div>
 </footer>
 
 <script src="projects.js"></script>
+<script>
+/* v133: Work page grid: same staggered cards as Featured work, filtered by All / UI/UX / Branding */
+(function () {
+  "use strict";
+  var mount = document.getElementById("workGrid");
+  if (!mount) return;
+  var all = window.PROJECTS || [];
+  var esc = function (t) { var d = document.createElement("div"); d.textContent = t == null ? "" : String(t); return d.innerHTML; };
+  var PORTRAIT = { "deductive-lab": "images/deductive-lab-cover-laptop.webp", "dibsd": "images/dibsd-card.webp" };
+  var real = all.filter(function (p) { return !/^project-/.test(p.slug) && p.title !== "Project name"; });
+  function cats(p) {
+    var t = (p.tags || []).join(" ") + " " + (p.category || "");
+    var c = [];
+    if (/ui|ux|web|app|dashboard|lms|research|product/i.test(t)) c.push("uiux");
+    if (/logo|brand|identity/i.test(t)) c.push("brand");
+    return c;
+  }
+  var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var animate = !calm && "IntersectionObserver" in window;
+  if (animate) document.documentElement.classList.add("fw-anim");
+  var io = animate ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+  }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }) : null;
+  function card(p, n) {
+    if (!p) {
+      return '<div class="fw__item fw__item--soon">' +
+        '<span class="fw__media"><span class="fw__ph mono">Project ' + n + '</span></span>' +
+        '<span class="fw__row"><span class="fw__title">Project name <em>Soon</em></span><span class="fw__year mono"></span></span>' +
+        '<span class="fw__sum">A short line on the brief and what changed.</span></div>';
+    }
+    var img = PORTRAIT[p.slug] || p.cover || p.image;
+    return '<a class="fw__item" href="project.html?p=' + encodeURIComponent(p.slug) + '">' +
+      '<span class="fw__media"><img src="' + esc(img) + '" alt="' + esc(p.title) + ' project" loading="lazy" decoding="async"></span>' +
+      '<span class="fw__row"><span class="fw__title">' + esc(p.title) + '</span><span class="fw__year mono">' + esc(p.year || "") + '</span></span>' +
+      '<span class="fw__sum">' + esc(p.summary) + '</span></a>';
+  }
+  function render(f) {
+    var list = f === "all" ? real.slice() : real.filter(function (p) { return cats(p).indexOf(f) > -1; });
+    var items = list.slice();
+    if (f === "all") { while (items.length < 6) items.push(null); }
+    mount.innerHTML = items.map(function (p, i) { return card(p, String(i + 1).padStart(2, "0")); }).join("");
+    document.getElementById("workEmpty").hidden = items.length > 0;
+    mount.querySelectorAll(".fw__item").forEach(function (el) { if (io) io.observe(el); });
+    drift();
+  }
+  var ticking = false;
+  function drift() {
+    if (!animate) return;
+    ticking = false;
+    var vh = window.innerHeight;
+    mount.querySelectorAll(".fw__media img").forEach(function (img) {
+      var r = img.parentNode.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      var t = ((r.top + r.height / 2) - vh / 2) / vh;
+      img.style.translate = "0 " + (Math.max(-1, Math.min(1, t)) * -3).toFixed(2) + "%";
+    });
+  }
+  if (animate) window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, { passive: true });
+  document.querySelectorAll("#workFilters .wk__tag").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll("#workFilters .wk__tag").forEach(function (x) { var on = x === b; x.classList.toggle("is-on", on); x.setAttribute("aria-pressed", on ? "true" : "false"); });
+      render(b.getAttribute("data-f"));
+    });
+  });
+  render("all");
+  var yr = document.getElementById("yr"); if (yr) yr.textContent = new Date().getFullYear();
+  var mnl = document.getElementById("mnl");
+  var tick = function () { try { mnl.textContent = new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Manila", hour: "2-digit", minute: "2-digit" }); } catch (e) {} };
+  if (mnl) { tick(); setInterval(tick, 30000); }
+  /* nav turns solid on scroll, as on the other pages */
+  var nav = document.getElementById("nav");
+  if (nav) { var ns = function () { nav.classList.toggle("is-solid", window.scrollY > 40); }; window.addEventListener("scroll", ns, { passive: true }); ns(); }
+})();
+</script>
+<script src="fx.js" defer></script>
 </body>
 </html>
