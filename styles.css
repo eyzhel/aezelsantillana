@@ -2213,6 +2213,8 @@ main.cx { padding-inline: var(--gutter); margin-inline: auto; }
 .cx__metai dd { margin: 0; font-size: .98rem; line-height: 1.45; }
 .cx__hero, .cx__fig { margin: 0; overflow: hidden; background: #141414; }
 .cx__hero img, .cx__fig img { display: block; width: 100%; height: auto; }
+.cx__fig video { display: block; width: 100%; height: auto; }
+.cx__hero video { display: block; width: 100%; height: auto; }
 .cx__sec { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: clamp(1.2rem, 4vw, 4rem); padding: clamp(4rem, 12vh, 8rem) 0; }
 .cx__label { font-family: var(--display); font-weight: 400; font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.5rem); letter-spacing: -.035em; line-height: 1.1; margin: 0; }
 .cx__body { max-width: 62ch; }
@@ -2284,3 +2286,22 @@ html.has-fx body { background: transparent; }
 .ba__range::-webkit-slider-thumb { -webkit-appearance: none; width: 46px; height: 100vh; }
 .ba__range::-moz-range-thumb { width: 46px; height: 100vh; border: 0; }
 .ba:has(.ba__range:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* v163: a second media row sits one gap under the first */
+.cx__media--next { margin-top: clamp(.75rem, 1.6vw, 1.5rem); }
+
+/* v164: self-scrolling page shot (project pages) */
+.sv { position: relative; container-type: size; aspect-ratio: 1366 / 800; }
+.sv .sv__img { position: absolute; left: 0; top: 0; width: 100%; height: auto; will-change: transform;
+  animation: sv-scroll 26s cubic-bezier(.45, 0, .55, 1) infinite; animation-play-state: paused; }
+.sv.is-on .sv__img { animation-play-state: running; }
+@keyframes sv-scroll {
+  0%, 6% { transform: translateY(0); }
+  86%, 92% { transform: translateY(calc(-100% + 100cqh)); }
+  100% { transform: translateY(0); }
+}
+@media (max-width: 700px) { .sv { aspect-ratio: 4 / 3 !important; } }
+@media (prefers-reduced-motion: reduce) {
+  .sv { overflow-y: auto; }
+  .sv .sv__img { position: static; animation: none; }
+}
