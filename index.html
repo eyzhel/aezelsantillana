@@ -539,7 +539,7 @@
   var all = window.PROJECTS || [];
   var esc = function (t) { var d = document.createElement("div"); d.textContent = t == null ? "" : String(t); return d.innerHTML; };
   /* per-project portrait image for this grid (falls back to cover/image) */
-  var PORTRAIT = { "deductive-lab": "images/deductive-lab-laptop-card.webp", "dibsd": "images/dibsd-card.webp" };
+  var PORTRAIT = { "deductive-lab": "images/deductive-lab-laptop-card.webp", "dibsd": "images/dibsd-hand-card.webp", "iseeju": "images/iseeju-card.webp", "akbar-academy": "images/akbar-academy-card.webp" };
   var real = all.filter(function (p) { return !/^project-/.test(p.slug) && p.title !== "Project name"; });
   var items = real.slice(0, 6);
   while (items.length < 6) items.push(null);

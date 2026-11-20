@@ -46,6 +46,7 @@ window.PROJECTS = [
     slug: "deductive-lab",
     title: "Deductive Lab",
     client: "DeductiveLab",
+    card: "images/deductive-lab-laptop-card.webp",
     year: "2024 - 2025",
     role: "UI/UX Designer, Brand Designer",
     tools: "Figma, Adobe CC Apps",
@@ -86,29 +87,42 @@ window.PROJECTS = [
       },
       challenge: {
         text: [
-          "IT teams each troubleshoot in their own way, so finding the real cause of an issue is slow and uneven. Deductive Lab teaches one standardized method, and it had to be taught clearly.",
-          "Troubleshooting training can feel dense, so the brand and the platform had to make it feel clear and approachable.",
-          "There were also two audiences to design for. IT managers buy the training and learners take it, so every screen had to work for both."
+          "Deductive Lab already had strong content and a trusted, founder-led brand. What it lacked was a learning experience that felt connected.",
+          "Learners could reach many parts of the product, but there was no clear path tying them together. The platform was functioning more like a content library than a guided learning experience."
         ],
+        /* rows: the animated logo (plays while on screen), then logo construction and colour palette side by side */
         media: [
-          { src: "images/deductive-lab-my-courses.webp", alt: "Deductive Lab My Courses dashboard: learner stats for courses, hours, posts, certificates and messages, a course search and four course cards with progress bars." },
-          { src: "images/deductive-lab-progress.webp", alt: "Deductive Lab course progress screen: a progress bar, collapsible modules marked completed, and lessons tagged Video, PDF and Challenge." }
+          [{ video: { src: "images/deductive-lab-logo-animation.mp4", poster: "images/deductive-lab-logo-animation-poster.webp", alt: "Animated Deductive Lab logo: white pixels assemble into the nodes mark, the green hexagon pops in behind, and the wordmark Deductive Lab rises letter by letter." }, ratio: "16 / 9" }],
+          [
+            { src: "images/deductive-lab-logo-construction.webp", alt: "Deductive Lab logo construction: the hexagon and nodes mark on a fine grid with guide lines, 30-degree diagonals and dimension markers." },
+            { src: "images/deductive-lab-colour-palette.webp", alt: "Deductive Lab colour palette: Swamp #00101A and Spring green #00EE88, with supporting shades Navy raised #002136, Green shade #04C16F, Aqua #05D6C9 and Mint #29EDA2." }
+          ]
         ]
       },
       approach: {
         text: [
-          "I started with how IT teams handle tickets today and where the real problem gets missed.",
-          "For the brand I designed a hexagon holding a cluster of nodes, a mark for precision and connected thinking, in two colours, Swamp and Spring green. Montserrat carries the headings, buttons and body text, with Roboto Mono for small labels.",
-          "I then structured the site around the landing page, courses, pricing, FAQs and a free diagnostic, so a busy IT leader reaches the offer in a few clicks. The landing page, the course page and the My Courses dashboard are built from one set of components."
+          "I approached the redesign as one guided path, from the first visit to the last lesson. It started with conversations with the founder and interviews with IT professionals, to better understand how they use courses.",
+          "Before enrolling, learners needed to see where a course would take them, so I designed a curriculum roadmap on the course page that lays it out module by module. After enrolling, they needed one place to pick up where they left off, so I designed a dashboard that shows their courses, hours and progress at a glance, with a single clear button to continue. Inside a course, lessons are grouped into modules with a progress bar, so a learner always knows what's done and what comes next.",
+          "To give the brand its own personality, I created the hexagon mark and carried its green and navy through every screen, so the website and the platform feel like one product."
         ],
-        media: [{ src: "images/deductive-lab-lesson.webp", alt: "Deductive Lab lesson player: course path on the left with a progress bar and lesson list, and the lesson video on the right." }]
+        /* rows: the big image first, then two side by side */
+        media: [
+          [{ src: "images/deductive-lab-lesson.webp", alt: "Deductive Lab lesson player: course path on the left with a progress bar and lesson list, and the lesson video on the right." }],
+          [
+            { src: "images/deductive-lab-my-courses.webp", alt: "Deductive Lab My Courses dashboard: learner stats for courses, hours, posts, certificates and messages, a course search and four course cards with progress bars." },
+            { src: "images/deductive-lab-progress.webp", alt: "Deductive Lab course progress screen: a progress bar, collapsible modules marked completed, and lessons tagged Video, PDF and Challenge." }
+          ]
+        ]
       },
       outcome: {
         text: [
-          "The result is one brand, carried from the first impression to the learner's dashboard.",
-          "I delivered the logo and brand identity, the landing page, the course page, checkout, and the My Courses dashboard, where each learner sees their courses, hours, progress and certificates, as high-fidelity screens ready to hand over for build."
+          "The result is a more distinctive website and a guided learning platform that keep Deductive Lab's strong content and founder-led trust, but add a recognizable brand character and a clear path through every course. The new hexagon mark helps Deductive Lab feel more modern, memorable, and recognizable within the IT training space.",
+          "The project helped Deductive Lab shift from a content-heavy platform into a more guided AI learning experience."
         ],
-        media: [{ src: "images/deductive-lab-hero.webp", alt: "Deductive Lab landing page hero with Join now and Try for free buttons above an illustration of two green laptops." }]
+        /* the self-scrolling course page */
+        media: [
+          [{ scroll: { src: "images/deductive-lab-course-page.webp", alt: "Deductive Lab course page, scrolling from the hero and course stats through the curriculum roadmap, success stories, pricing plans and the coach section." }, ratio: "1366 / 800" }]
+        ]
       }
     },
     sections: [
@@ -217,8 +231,10 @@ window.PROJECTS = [
     title: "Dibsd",
     eyebrow: "Case study",
     client: "Dibsd",
+    year: "October 2025",
     role: "UX/UI Design",
     summary: "A ticket resale app that lets people buy and sell tickets for the events they love with confidence.",
+    card: "images/dibsd-hand-card.webp",
     image: "images/dibsd-card.webp",
     cover: "images/dibsd-card.webp",
     banner: "images/dibsd-banner.webp",
@@ -243,40 +259,53 @@ window.PROJECTS = [
     alt: "Dibsd event tickets marketplace: three phone screens showing trending events, a Moulin Rouge ticket page with seat, price and buyer protection, and a seller account with listings and badges.",
     tags: ["Mobile App", "UX Research", "UI Design", "Marketplace"],
     case: {
-      headline: "Designing trust into a ticket resale app",
+      headline: "Designing a mobile app for a ticket resale platform",
       scope: "Mobile app",
-      hero: { src: "images/dibsd-card.webp", alt: "Three Dibsd app screens on phones: trending events, a Moulin Rouge ticket page and a seller account." },
+      hero: { video: "images/dibsd-screens-motion.mp4", poster: "images/dibsd-screens-motion-poster.webp", src: "images/dibsd-card.webp", alt: "Columns of Dibsd app screens sliding up in a loop: onboarding, search, event page, ticket browsing, ticket details, checkout, my ticket and seller profile." },
       overview: {
         text: [
-          "Dibsd is a ticket resale app where people buy and sell tickets for the events they love, with confidence.",
-          "I designed the app's screens around one idea, trust: official box office listings, a buyer guarantee on every ticket, and seller profiles with badges, reviews and sales."
+          "Dibsd is a ticket resale platform where people buy and sell tickets for the events they love. Its aim is to make resale feel safe, so that every ticket bought on Dibsd gets the buyer through the door.",
+          "I worked on the project as a UX/UI designer. I designed the mobile interface, joined online meetings with the client, and worked closely with the developer so the design stayed visually consistent and was clear and practical to build."
         ],
-        media: [{ src: "images/dibsd-cover.webp", alt: "Two Dibsd phone screens, the Moulin Rouge ticket details and the home screen, on a dark background." }]
+        /* information architecture: buyer, seller and shared branches */
+        media: [
+          [{ src: "images/dibsd-information-architecture.webp", alt: "Dibsd information architecture: onboarding splits into a buyer branch (discover events, search, seat map, checkout, ticket wallet), a seller branch (list, verify and price tickets, seller hub, payouts) and a shared account branch (messages, notifications, help center, profile)." }]
+        ]
       },
       challenge: {
         text: [
-          "People feel unsafe buying tickets online. There are reports of scams, invalid tickets and sky-rocketing prices, so buyers and sellers hesitate before a single ticket changes hands.",
-          "Fake listings make buyers doubt every ticket they see. A ticket that does not get you through the door is the worst outcome for a buyer, and prices that jump without explanation push people away from resale.",
-          "The goal was to make sure every ticket bought on Dibsd results in a valid entry to the event."
+          "The main challenge was that Dibsd works two ways. Every ticket has a seller who lists it and a buyer who looks for it, and each of them comes to the app with a different goal.",
+          "That meant designing two sets of screens, one for sellers and one for buyers, that still feel like one app. Both sides also had to trust each other, because scams, invalid tickets and sky-rocketing prices make people hesitate before a single ticket changes hands."
         ],
         media: [
-          { src: "images/dibsd-home.webp", alt: "Dibsd home screen: a search bar, trending events with date, venue and from-price, category chips and an event list." },
-          { src: "images/dibsd-ticket.webp", alt: "Dibsd ticket details for Moulin Rouge! The Musical: row D seat 186 at $56.00, an Official Box Office note, a Buyer Guaranteed Protected note, and Chat Seller and Buy Ticket buttons." },
-          { src: "images/dibsd-account.webp", alt: "Dibsd seller account: rating, reviews, sales and followers, Trusted Seller and Quick Responder badges, and Listings, Sold and Reviews tabs." }
+          [
+            { src: "images/dibsd-home.webp", alt: "Dibsd home screen: a search bar, trending events with date, venue and from-price, category chips and an event list." },
+            { src: "images/dibsd-ticket.webp", alt: "Dibsd ticket details for Moulin Rouge! The Musical: row D seat 186 at $56.00, an Official Box Office note, a Buyer Guaranteed Protected note, and Chat Seller and Buy Ticket buttons." },
+            { src: "images/dibsd-account.webp", alt: "Dibsd seller account: rating, reviews, sales and followers, Trusted Seller and Quick Responder badges, and Listings, Sold and Reviews tabs." }
+          ]
         ]
       },
       approach: {
         text: [
           "I started with why people hesitate to buy tickets online, then set one goal: every ticket bought on Dibsd results in a valid entry. From there I explored ways to build trust into the app and designed the search, ticket details and seller account screens around it.",
+          "To understand the market, I ran a competitive analysis of three established resale platforms, SeatGeek, TicketSwap and StubHub, to see where they earn buyers' trust and where they lose it. SeatGeek has strong visuals and a smooth mobile experience, but occasional ticket validity and support issues. TicketSwap builds trust with fair pricing and its SecureSwap anti-fraud system, but has limited features. StubHub has the largest inventory, but hidden fees and low transparency hurt its credibility. The opportunity for Dibsd was to bring the best of these together: clear visuals, upfront pricing and verified listings in one app.",
           "The home screen leads with search, trending events and category chips. The ticket screen puts row, seat and price first, with the Official Box Office and Buyer Guaranteed notes just above Chat Seller and Buy Ticket. Seller profiles show rating, reviews, sales and badges like Trusted Seller and Quick Responder, so a buyer can check a seller before buying.",
           "The app works within Dibsd's brand: teal for buttons, prices and active states, white space for calm, and a few playful accents in yellow, blue, green and orange."
         ],
-        media: [{ src: "images/dibsd-still.webp", alt: "Three Dibsd screens side by side on a teal background, the ticket details screen in focus." }]
+        /* competitive analysis and user personas */
+        media: [
+          [{ src: "images/dibsd-competitive-analysis.webp", alt: "Competitive analysis of SeatGeek, TicketSwap and StubHub: each card lists strengths, weaknesses and the UX opportunity for Dibsd." }],
+          [{ src: "images/dibsd-user-personas.webp", alt: "User personas for Dibsd: Mia, 19, student; Jake, 22, young professional; Russel, 37, millennial; Anna, 20, student; Ella, 34, millennial, each with their ticket buying or selling needs." }]
+        ]
       },
       outcome: {
         text: [
           "One promise on every screen: a ticket that gets you in.",
-          "I delivered the home and search, ticket details and seller account screens, each one built to answer a buyer's doubts before they reach the Buy Ticket button."
+          "I delivered the home and search, ticket details and seller account screens, each one built to answer a buyer's doubts before they reach the Buy Ticket button. Together they make Dibsd a single platform that verifies every event ticket is valid before it is sold. It regulates the percentage profit sellers can make, while still giving them the option to set their own prices. Each listing also carries a safety score that shows buyers the result of the app's 5-step check, so they know their entry to the event is guaranteed."
+        ],
+        /* the screens with feature callouts */
+        media: [
+          [{ src: "images/dibsd-screens-callouts.webp", alt: "Three Dibsd screens with callouts: every event shows its starting price upfront, listings can be sorted by price to find the best seat for a budget, and users can read feedback and share their own experiences after purchasing." }]
         ]
       }
     },
@@ -363,6 +392,124 @@ window.PROJECTS = [
           ]
         } }
     ]
+  },
+
+  {
+    slug: "iseeju",
+    title: "Iseeju Dating App",
+    client: "Iseeju",
+    role: "UI/UX Design",
+    year: "September to November 2024",
+    summary: "A dating app that helps people discover profiles, find their best match and start a conversation.",
+    image: "images/iseeju-card.webp",
+    cover: "images/iseeju-card.webp",
+    card: "images/iseeju-card.webp",
+    alt: "Two Iseeju phone screens on a purple and pink background: the onboarding screen Find your best match and the Log in screen.",
+    tags: ["Mobile App", "UI Design", "Dating"],
+    /* DRAFT copy from the Iseeju case study reference; confirm with Aezel */
+    case: {
+      headline: "Designing a dating app that makes finding a match feel simple",
+      scope: "Mobile app",
+      hero: { src: "images/iseeju-hero.webp", alt: "Two Iseeju phones on a purple and pink background: the onboarding screen Find your best match and the Log in screen." },
+      overview: {
+        text: [
+          "Iseeju is a dating app inspired by real-world dating apps. People discover profiles nearby, find their best match and start a conversation.",
+          "The screens follow a flat, minimal style that keeps the user experience the priority, and the designs were delivered in Figma and Adobe Photoshop."
+        ],
+        media: [
+          /* style guide: typography and colour palette */
+          [{ src: "images/iseeju-style-guide.webp", alt: "Iseeju style guide: Montserrat Semi Bold and Regular type specimens, and the colour palette Love Pink #FE456E, Coral #FF5D5F, Violet #834FFD, Ink #1A1A1A and Teal #00BDD1." }]
+        ]
+      },
+      challenge: {
+        text: [
+          "Dating apps ask people to trust strangers, and many fall short. Fake profiles and scams, privacy risks, high data use, payment fraud and a constant stream of notifications wear that trust down. Swiping is designed to keep people hooked rather than help them meet, and matches often feel random.",
+          "The challenge for Iseeju was to make finding a match feel safe and simple: verify who people are, moderate the community, protect personal data, keep the app light and quiet, secure every payment, and guide people from a match to a real conversation."
+        ],
+        media: [
+          /* information architecture */
+          [{ src: "images/iseeju-information-architecture.webp", alt: "Iseeju information architecture: Start Screen leads to Login then Verification, or Registration then User Info; both open My Profile (Account, Security, Favorites), Search (Nearby), Dashboard (Members, Skill Tree, Spin the Wheel, Coins Packages, Gallery) and Chat (Stickers, Smileys)." }]
+        ]
+      },
+      approach: {
+        text: [
+          "I started by mapping the information architecture, so every key flow, from sign up to search, dashboard and chat, was no more than a few taps away. From there I set up a small style guide with Montserrat and a bright pink, coral and violet palette, so the app felt warm and playful without getting noisy.",
+          "The screens follow a flat, minimal style that puts people's photos and messages first. Three short onboarding screens explain the app in one line each, and sign up is kept to a few steps, with social log in and email verification to keep accounts real."
+        ],
+        media: [
+          /* onboarding (splash) screens */
+          [{ src: "images/iseeju-onboarding.webp", alt: "Three Iseeju onboarding screens on phones: Find your best match, Discover people around and Start a conversation, each with a Log in button." }],
+          /* log in, sign up and verification */
+          [{ src: "images/iseeju-login-signup.webp", alt: "Three Iseeju phones: the Log in screen with social and email options, the Create Account sign up screen, and the Verify your email code entry with a number pad." }]
+        ]
+      },
+      outcome: {
+        text: [
+          "The result is a complete set of app screens, from onboarding and sign up to search, profiles and chat, delivered in Figma and Adobe Photoshop and ready for development.",
+          "Iseeju launches with four key features: smart search filters, private chat, live features that show who is online nearby, and trending local events. Together they give people a safer, simpler way to find a match and start a real conversation."
+        ],
+        media: [
+          /* key features */
+          [{ src: "images/iseeju-features.webp", alt: "Iseeju key features around a phone showing the New Members screen: Innovative Suchoptionen (search filters by age, distance and interests), Diskreter Chat (private, secure messaging), Live Funktions (see who is online nearby) and Trending Events (popular local events), with App Store and Google Play badges." }]
+        ]
+      }
+    }
+  },
+
+  {
+    slug: "akbar-academy",
+    title: "Akbar Academy",
+    client: "Akbar Academy",
+    role: "UI/UX Design",
+    summary: "A registration flow and dashboard for an online tutoring academy, where students and parents sign up, choose courses and classes, and pay in one guided path.",
+    image: "images/akbar-academy-card.webp",
+    cover: "images/akbar-academy-card.webp",
+    card: "images/akbar-academy-card.webp",
+    alt: "Akbar Academy student portal on a laptop seen from a low angle, resting on a concrete ledge against a dark background with a blue glow.",
+    tags: ["Dashboard", "Web Design", "UI Design"],
+    /* DRAFT copy written from the Figma mocks (file LA7p77DPLRKHdSlBkyCokN); year, role and tags not confirmed by Aezel */
+    case: {
+      headline: "Designing a registration dashboard for an online tutoring academy",
+      scope: "Web app, Registration, Dashboard",
+      hero: { src: "images/akbar-academy-hero.webp", alt: "Akbar Academy student portal on a laptop resting on a concrete ledge, seen from a low angle against a dark background with a blue glow." },
+      overview: {
+        text: [
+          "Akbar Academy is an online academy that teaches GCSE, IGCSE, AS and A2 level courses to students around the world. Before the first lesson, every new student has to register, choose subjects and an exam board, share their school grades, pick a class time and pay.",
+          "I designed that registration journey and the portal students and parents land on afterwards, for desktop and mobile."
+        ],
+        media: []
+      },
+      challenge: {
+        text: [
+          "Registration was split across separate pages for students and parents, with long forms and no sense of how many steps were left. Students and parents also had to be linked to each other, and one parent could be managing more than one child.",
+          "The challenge was to turn a long sign up into one clear path, and give students and parents a single place to see their courses, class times, payments and messages."
+        ],
+        media: [
+          /* registration flow, steps 2 to 6 */
+          [{ src: "images/akbar-academy-registration-flow.webp", alt: "Five Akbar Academy registration screens in browser windows, cascading left to right: Select Subjects, Select Course, Enter your school grades, Select Class and Make Payment, each with the six-step progress bar at the top." }]
+        ]
+      },
+      approach: {
+        text: [
+          "I broke registration into six numbered steps: Register, Subject, Course, Grades, Class and Payment. A progress bar at the top shows where you are, and each step asks for one thing at a time. Courses are grouped by level (Half Syllabus, Full Syllabus, AS Level, A2 Level) with the exam board on each option, and class times show how many slots are left.",
+          "After registering, students and parents share one portal layout. It shows linked accounts, the academic year, each subject with its course and class schedule, credits and payment, and a calendar. Parents can switch between their children, and an unfinished step, like choosing a class, is flagged right where it belongs."
+        ],
+        media: [
+          /* parent and student portals */
+          [{ src: "images/akbar-academy-dashboards.webp", alt: "Two laptops side by side on a concrete ledge: the Akbar Academy Parent Portal with linked students and credits, and the Student Portal with linked parents, subjects and a calendar." }]
+        ]
+      },
+      outcome: {
+        text: [
+          "The result is a complete registration flow and portal for desktop and mobile, covering students and parents, empty and pending states, and the pop ups for each step, delivered in Figma and ready for development.",
+          "The design gives new students one guided path from sign up to their first class, and gives parents a clear view of every child's courses, schedule and payments in one place."
+        ],
+        media: [
+          /* full student portal, self-scrolling */
+          [{ scroll: { src: "images/akbar-academy-student-dashboard.webp", alt: "The full Akbar Academy Student Portal page: welcome header, linked parents, payment and credits, academic year, Physics, Chemistry and Math courses with class schedules, and a calendar." }, ratio: "1440 / 900" }]
+        ]
+      }
+    }
   },
 
   {
@@ -1311,10 +1458,54 @@ window.PROJECTS = [
     return f;
   }
 
+  /* A tall screenshot that scrolls itself top to bottom, like a screen
+     recording. It only runs while on screen; with reduced motion it is
+     a frame the visitor scrolls by hand. */
+  function caseScroll(m) {
+    var f = el("figure", "cx__fig cx-rise sv");
+    if (m.ratio) f.style.aspectRatio = m.ratio;
+    f.tabIndex = 0;
+    var im = el("img", "sv__img");
+    im.src = m.scroll.src; im.alt = m.scroll.alt || ""; im.loading = "lazy"; im.decoding = "async";
+    f.appendChild(im);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) { f.classList.toggle("is-on", e.isIntersecting); });
+      }, { threshold: 0.25 }).observe(f);
+    } else { f.classList.add("is-on"); }
+    return f;
+  }
+
+  /* A short muted looping clip that plays only while on screen.
+     With reduced motion it shows the poster and play controls instead. */
+  function caseVideo(m) {
+    var f = el("figure", "cx__fig cx-rise");
+    if (m.ratio) f.style.aspectRatio = m.ratio;
+    var v = document.createElement("video");
+    v.src = m.video.src; v.muted = true; v.loop = true; v.playsInline = true; v.preload = "metadata";
+    v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
+    if (m.video.poster) v.poster = m.video.poster;
+    if (m.video.alt) v.setAttribute("aria-label", m.video.alt);
+    f.appendChild(v);
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (calm) { v.controls = true; }
+    else if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (e.isIntersecting) { v.currentTime = 0; var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+          else v.pause();
+        });
+      }, { threshold: 0.4 }).observe(f);
+    } else { v.autoplay = true; }
+    return f;
+  }
+
   function caseMedia(list) {
     var box = el("div", "cx__media cx__media--" + Math.min(list.length, 3));
     list.forEach(function (m) {
       if (m.before || m.after) { box.appendChild(caseCompare(m)); return; }
+      if (m.scroll) { box.appendChild(caseScroll(m)); return; }
+      if (m.video) { box.appendChild(caseVideo(m)); return; }
       var f = el("figure", "cx__fig cx-rise");
       var im = el("img");
       im.src = m.src; im.alt = m.alt || ""; im.loading = "lazy"; im.decoding = "async";
@@ -1347,9 +1538,21 @@ window.PROJECTS = [
 
     var hero = c.hero || { src: p.cover || p.image, alt: p.alt || p.title };
     var hf = el("figure", "cx__hero");
-    var hi = el("img");
-    hi.src = hero.src; hi.alt = hero.alt || ""; hi.decoding = "async";
-    hf.appendChild(hi);
+    if (hero.video) {
+      /* muted looping clip; with reduced motion it shows the poster and controls */
+      var hv = document.createElement("video");
+      hv.src = hero.video; hv.muted = true; hv.loop = true; hv.playsInline = true; hv.preload = "auto";
+      hv.setAttribute("muted", ""); hv.setAttribute("playsinline", "");
+      if (hero.poster) hv.poster = hero.poster;
+      if (hero.alt) hv.setAttribute("aria-label", hero.alt);
+      if (reduce) { hv.controls = true; }
+      else { hv.autoplay = true; hv.setAttribute("autoplay", ""); }
+      hf.appendChild(hv);
+    } else {
+      var hi = el("img");
+      hi.src = hero.src; hi.alt = hero.alt || ""; hi.decoding = "async";
+      hf.appendChild(hi);
+    }
     wrap.appendChild(hf);
 
     /* fill a missing part from the older "sections" list, else a prompt */
@@ -1368,7 +1571,15 @@ window.PROJECTS = [
       text.forEach(function (t) { body.appendChild(el("p", null, t.replace(/\*\*/g, ""))); });
       sec.appendChild(body);
       wrap.appendChild(sec);
-      if (data.media && data.media.length) wrap.appendChild(caseMedia(data.media));
+      if (data.media && data.media.length) {
+        /* media can be one row, or a list of rows shown one under another */
+        var rows = Array.isArray(data.media[0]) ? data.media : [data.media];
+        rows.forEach(function (row, ri) {
+          var mb = caseMedia(row);
+          if (ri) mb.classList.add("cx__media--next");
+          wrap.appendChild(mb);
+        });
+      }
     });
 
     /* more projects */
@@ -1382,7 +1593,7 @@ window.PROJECTS = [
       var media = el("span", "cx__cardimg");
       if (o2) {
         a.href = "project.html?p=" + encodeURIComponent(o2.slug);
-        var ci = el("img"); ci.src = o2.cover || o2.image; ci.alt = ""; ci.loading = "lazy";
+        var ci = el("img"); ci.src = o2.card || o2.cover || o2.image; ci.alt = ""; ci.loading = "lazy";
         media.appendChild(ci);
       } else {
         media.appendChild(el("span", "mono", "Soon"));
