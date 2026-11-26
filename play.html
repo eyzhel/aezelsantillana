@@ -181,6 +181,11 @@ main { position: relative; z-index: 1; padding: clamp(120px, 20vh, 200px) max(16
 .cx__visit a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; letter-spacing: .04em; }
 .cx__visit a:hover { color: #fff; }
 .cx__lead { margin: 18px 0 28px; max-width: 46ch; font-size: clamp(17px, 1.45vw, 22px); line-height: 1.5; color: var(--muted); }
+.cx__hero--video { position: relative; aspect-ratio: 16 / 9; }
+.cx__hero--video video { width: 100%; height: 100%; object-fit: cover; }
+.cx__sound { position: absolute; right: 16px; bottom: 16px; border: 1px solid rgba(255,255,255,.35); background: rgba(10,10,10,.6); color: #fff; font: inherit; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding: 8px 12px; cursor: pointer; backdrop-filter: blur(6px); }
+.cx__sound:hover, .cx__sound[aria-pressed="true"] { border-color: var(--accent); }
+.cx__sound:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
 <body>
@@ -234,6 +239,18 @@ main { position: relative; z-index: 1; padding: clamp(120px, 20vh, 200px) max(16
   });
   wrap.appendChild(meta);
   /* hero: the same cover as the wall tile, resolving from big pixels like the wall transition */
+  if (p.video) {
+    /* hero video: muted loop that plays only on screen, with a sound toggle (the demo has music) */
+    var vf = el("figure", "cx__hero cx__hero--video"), v = document.createElement("video");
+    v.src = p.video.src; v.poster = p.video.poster; v.muted = true; v.loop = true; v.playsInline = true; v.preload = "metadata";
+    v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("aria-label", p.video.alt);
+    if (reduce) v.controls = true;
+    vf.appendChild(v);
+    var snd = el("button", "cx__sound", "Sound off"); snd.type = "button"; snd.setAttribute("aria-pressed", "false");
+    snd.addEventListener("click", function () { v.muted = !v.muted; snd.textContent = v.muted ? "Sound off" : "Sound on"; snd.setAttribute("aria-pressed", v.muted ? "false" : "true"); if (v.paused) v.play().catch(function () {}); });
+    vf.appendChild(snd); wrap.appendChild(vf);
+    if (!reduce && "IntersectionObserver" in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) v.play().catch(function () {}); else v.pause(); }); }, { threshold: .25 }).observe(vf);
+  } else {
   var hf = el("figure", "cx__hero is-pix"), big = makeCover(i, 1280, 800), hc = el("canvas"); hc.width = 1280; hc.height = 800; hf.appendChild(hc); wrap.appendChild(hf);
   var hg = hc.getContext("2d"), tmp = document.createElement("canvas"), tg = tmp.getContext("2d");
   function pix(px) {
@@ -242,6 +259,7 @@ main { position: relative; z-index: 1; padding: clamp(120px, 20vh, 200px) max(16
     hg.imageSmoothingEnabled = false; hg.drawImage(tmp, 0, 0, 1280, 800);
   }
   if (reduce) pix(1); else { var t0 = performance.now(); (function go(n) { var t = Math.min(1, (n - t0) / 700); pix(t >= 1 ? 1 : Math.round(48 * Math.pow(1 - t, 2)) + 1); if (t < 1) requestAnimationFrame(go); })(t0); }
+  }
   /* playground sections: Product Concept, Why I Built It, Key Features, Design Direction, Reflection */
   var PH = "[Placeholder: ";
   [["Product Concept", p.concept || [p.line]],
