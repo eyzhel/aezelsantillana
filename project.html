@@ -1,54 +1,444 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Project · Aezel Santillana</title>
-  <meta name="description" content="Project case study by Aezel Santillana, Senior UI/UX Designer.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,800&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@400;600;700;800&family=Roboto+Mono:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project · Aezel Santillana</title>
+<meta name="description" content="Project case study by Aezel Santillana, Senior UI/UX Designer.">
+<style>
+:root {
+  --bg: #0A0A0A; --ink: #EDEDED; --muted: #8A8A8A; --rule: #1F1F1F; --accent: #8B5CF6;
+  --mono: "PP Supply Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --display: "PP Mori", "Helvetica Neue", Arial, sans-serif;
+  --body: 16px; --h2: clamp(28px, 3.4vw, 52px);
+  color-scheme: dark;
+}
+@font-face { font-family: "PP Supply Mono"; font-weight: 400; font-display: swap; src: url("fonts/PPSupplyMono-Regular.woff2") format("woff2"); }
+@font-face { font-family: "PP Mori"; font-weight: 400; font-display: swap; src: url("fonts/PPMori-Regular.woff2") format("woff2"); }
+@font-face { font-family: "PP Mori"; font-weight: 600 700; font-display: swap; src: url("fonts/PPMori-SemiBold.woff2") format("woff2"); }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--mono); -webkit-font-smoothing: antialiased; }
+@media (max-width: 640px) { :root { --body: 16px; } }
+/* subtle polygon line network behind everything, lit by slow purple and blue lights */
+#bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: .9; }
+.skip { position: absolute; left: -9999px; } .skip:focus { left: 16px; top: 16px; z-index: 20; background: #000; color: #fff; padding: 8px 12px; }
+/* top bar: same as the home page (logo left, menu right) */
+.top { position: fixed; inset: 0 0 auto 0; z-index: 10; display: flex; align-items: center; gap: 44px;
+  padding: calc(env(safe-area-inset-top, 0px) + 20px) max(16px, env(safe-area-inset-right, 0px)) 20px max(16px, env(safe-area-inset-left, 0px));
+  transition: background .3s ease, border-color .3s ease; border-bottom: 1px solid transparent; }
+.top.is-solid { background: rgba(10,10,10,.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom-color: var(--rule); }
+.logo { margin-right: auto; line-height: 0; }
+.logo a { display: inline-block; }
+.logo svg { display: block; height: 28px; width: auto; }
+.logo a:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+.menu { display: flex; gap: 44px; }
+.menu a { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; white-space: nowrap; transition: color .25s ease; }
+.menu a:hover, .menu a:focus-visible, .menu a[aria-current="page"] { color: var(--ink); }
+.menu a[aria-current="page"] i { color: var(--accent); }
+.menu i { font-style: normal; }
+.menu b { color: var(--ink); font-weight: 400; }
+@media (max-width: 640px) { .menu { gap: 18px; } .menu a { font-size: 10px; } .menu .hide-s { display: none; } }
+main { position: relative; z-index: 1; padding: clamp(120px, 20vh, 200px) max(16px, 6vw) 0; }
+/* head */
+.kicker { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+.wk__h { font-family: var(--display); font-weight: 600; font-size: clamp(34px, 5.2vw, 76px); line-height: 1.04; letter-spacing: -.02em; margin: 0; max-width: 18ch; text-wrap: balance; color: #fff; }
+.wk__h em { font-style: normal; color: var(--accent); }
+.wk__lead { margin: 22px 0 0; max-width: 56ch; font-size: var(--body); line-height: 1.6; color: var(--muted); }
+.wk__filters { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+.wk__tag { --c: 7px; font: inherit; font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; cursor: pointer; color: var(--muted);
+  background: rgba(10,10,10,.7); border: 0; padding: 11px 18px; box-shadow: inset 0 0 0 1px #2A2A2A;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% 100%, 0 100%, 0 var(--c)); transition: color .2s ease, box-shadow .2s ease, background .2s ease; }
+.wk__tag:hover { color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.5); }
+.wk__tag.is-on { color: #fff; background: rgba(139,92,246,.16); box-shadow: inset 0 0 0 1px var(--accent); }
+.wk__tag:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+.wk__count { margin-left: 6px; color: var(--accent); }
+/* grid: the same staggered cards as Selected work on the home page */
+.fw { container-type: inline-size; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(1.5rem, 3vw, 2.6rem); row-gap: clamp(3rem, 7vw, 5.5rem); padding-bottom: 17cqw; margin-top: clamp(48px, 8vh, 80px); }
+.fw__item { display: block; color: var(--ink); text-decoration: none; }
+.fw__item:nth-child(even) { transform: translateY(17cqw); }
+.fw__media { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; background: #111; }
+.fw__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s cubic-bezier(.22,.75,.3,1); }
+.fw__item:hover .fw__media img { transform: scale(1.035); }
+.fw__item:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+.fw__row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-top: 1.15rem; }
+.fw__title { font-family: var(--display); font-weight: 600; font-size: clamp(1.1rem, .95rem + .5vw, 1.4rem); letter-spacing: -.02em; transition: color .3s; }
+.fw__item:hover .fw__title { color: var(--accent); }
+.fw__title em { font-style: normal; font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-left: 10px; vertical-align: middle; }
+.fw__year { color: var(--muted); font-size: .72rem; letter-spacing: .08em; white-space: nowrap; }
+.fw__tags { display: block; margin-top: .55rem; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #6A6A6A; }
+.fw__sum { display: block; margin-top: .5rem; color: var(--muted); font-size: var(--body); line-height: 1.6; }
+.fw__item--soon .fw__media { display: grid; place-items: center; background-color: rgba(15,15,15,.7); border: 1px dashed #2A2A2A;
+  background-image: linear-gradient(#151515 1px, transparent 1px), linear-gradient(90deg, #151515 1px, transparent 1px); background-size: 24px 24px; }
+.fw__ph { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #4A4A4A; }
+.fw__item--soon:hover .fw__title { color: inherit; }
+@media (max-width: 720px) { .fw { grid-template-columns: minmax(0, 1fr); padding-bottom: 0; row-gap: 3rem; } .fw__item:nth-child(even) { transform: none; } }
+.wk__empty { color: var(--muted); font-size: var(--body); }
+/* reveal on scroll */
+.fw-anim .fw__media { clip-path: inset(14% 0 0 0); opacity: 0; transition: clip-path 1.2s cubic-bezier(.22,.75,.3,1), opacity .9s ease; }
+.fw-anim .fw__media img { scale: 1.14; transition: transform 1.1s cubic-bezier(.22,.75,.3,1), scale 1.6s cubic-bezier(.22,.75,.3,1); }
+.fw-anim .fw__row, .fw-anim .fw__tags, .fw-anim .fw__sum { opacity: 0; translate: 0 14px; transition: opacity .8s ease .25s, translate .9s cubic-bezier(.22,.75,.3,1) .25s; }
+.fw-anim .fw__item.is-in .fw__media { clip-path: inset(0 0 0 0); opacity: 1; }
+.fw-anim .fw__item.is-in .fw__media img { scale: 1.08; }
+.fw-anim .fw__item.is-in .fw__row, .fw-anim .fw__item.is-in .fw__tags, .fw-anim .fw__item.is-in .fw__sum { opacity: 1; translate: 0 0; }
+/* confidential projects panel */
+.private { margin-top: clamp(80px, 14vh, 160px); display: flex; justify-content: space-between; align-items: flex-end; gap: 32px 48px; flex-wrap: wrap;
+  border: 1px solid #2A2A2A; background: rgba(15,15,15,.72); backdrop-filter: blur(6px); padding: clamp(28px, 4vw, 56px); }
+.private__tag { margin: 0 0 14px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.private h3 { margin: 0 0 14px; font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2.4vw, 34px); letter-spacing: -.02em; color: #fff; }
+.private p:not(.private__tag) { margin: 0; max-width: 60ch; font-size: var(--body); line-height: 1.6; color: var(--muted); }
+/* mechanical button: same as Send message on the home page */
+.mbtn { --c: 10px; position: relative; display: inline-flex; align-items: center; gap: 12px; cursor: pointer; border: 0; background: rgba(10,10,10,.9); color: #fff; text-decoration: none;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .24em; text-transform: uppercase; padding: 16px 26px;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% 100%, 0 100%, 0 var(--c));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.8); transition: background .25s ease; }
+.mbtn::before { content: ""; position: absolute; left: 0; top: 0; width: calc(var(--c) * 1.414); height: 1px; background: rgba(255,255,255,.8); transform-origin: 0 0; transform: translate(0, var(--c)) rotate(-45deg); }
+.mbtn svg { color: var(--accent); transition: transform .25s ease, color .25s ease; }
+.mbtn:hover { background: var(--accent); }
+.mbtn:hover svg { color: #fff; transform: translate(2px, -2px); }
+.mbtn:focus-visible { outline: 1px solid var(--accent); outline-offset: 6px; }
+.glow { filter: drop-shadow(0 0 14px rgba(139,92,246,.45)); }
+/* footer */
+.lf { margin-top: clamp(64px, 12vh, 140px); border-top: 1px solid var(--rule); padding: 22px 0 calc(env(safe-area-inset-bottom, 0px) + 22px);
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.lf a { color: var(--muted); text-decoration: none; } .lf a:hover { color: #fff; }
+.lf__links { display: flex; gap: 22px; flex-wrap: wrap; }
+.lf__links span { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* ---- case study page (old site's Overview / Challenge / Approach / Outcome layout, new styling) ---- */
+.cx__back { display: inline-flex; gap: 10px; align-items: center; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; margin: 0 0 clamp(28px, 5vh, 48px); transition: color .2s ease; }
+.cx__back span { color: var(--accent); }
+.cx__back:hover { color: #fff; }
+.cx__eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+.cx__h { font-family: var(--display); font-weight: 600; font-size: clamp(32px, 4.6vw, 68px); line-height: 1.05; letter-spacing: -.02em; max-width: 24ch; margin: 0 0 clamp(36px, 6vh, 60px); color: #fff; text-wrap: balance; }
+.cx__meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0 0 clamp(32px, 5vh, 56px); border-top: 1px solid #2A2A2A; border-bottom: 1px solid #2A2A2A; background: rgba(10,10,10,.55); }
+.cx__metai { padding: 26px 20px 28px 0; }
+.cx__metai + .cx__metai { padding-left: 20px; border-left: 1px solid #2A2A2A; }
+.cx__metai dt { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; }
+.cx__metai dd { margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink); }
+.cx__hero, .cx__fig { margin: 0; overflow: hidden; background: #141414; }
+.cx__hero { position: relative; }
+.cx__hero.has-mosaic { background: transparent; }
+.cx__hero.has-mosaic > img, .cx__hero.has-mosaic > video { visibility: hidden; }
+.cx__mosaic { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cx__hero img, .cx__fig img, .cx__hero video, .cx__fig video { display: block; width: 100%; height: auto; }
+.cx__sec { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: clamp(20px, 4vw, 64px); padding: clamp(64px, 12vh, 128px) 0 clamp(40px, 7vh, 72px); }
+.cx__label { margin: 0; }
+.cx__label .n { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--accent); margin-bottom: 12px; }
+.cx__label .t { display: block; font-family: var(--display); font-weight: 600; font-size: var(--h2); letter-spacing: -.02em; line-height: 1.08; color: #fff; }
+.cx__body p { margin: 0 0 1.1em; color: var(--muted); font-size: var(--body); line-height: 1.7; }
+.cx__body p:first-child { color: var(--ink); }
+.cx__body p:last-child { margin-bottom: 0; }
+.cx__media { display: grid; gap: clamp(12px, 1.6vw, 24px); }
+.cx__media--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cx__media--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cx__media--2 .cx__fig img, .cx__media--3 .cx__fig img { height: 100%; object-fit: cover; }
+.cx__media--next { margin-top: clamp(12px, 1.6vw, 24px); }
+/* before and after slider */
+.ba { position: relative; --pos: 50%; aspect-ratio: 16 / 10; user-select: none; touch-action: pan-y; }
+.ba__layer { position: absolute; inset: 0; }
+.ba__layer img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.ba__layer--before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.ba__tag { position: absolute; bottom: 16px; padding: 7px 11px; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #fff; background: rgba(10,10,10,.78); box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
+.ba__layer--before .ba__tag { left: 16px; } .ba__layer--after .ba__tag { right: 16px; }
+.ba__bar { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: var(--accent); box-shadow: 0 0 18px rgba(139,92,246,.8); pointer-events: none; }
+.ba__knob { --c: 8px; position: absolute; top: 50%; left: 50%; translate: -50% -50%; display: grid; place-items: center; width: 50px; height: 40px; background: var(--accent); color: #fff; font-size: 14px; letter-spacing: .1em; white-space: nowrap;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% 100%, 0 100%, 0 var(--c)); }
+.ba__range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; -webkit-appearance: none; appearance: none; background: transparent; }
+.ba__range::-webkit-slider-thumb { -webkit-appearance: none; width: 50px; height: 100vh; }
+.ba__range::-moz-range-thumb { width: 50px; height: 100vh; border: 0; }
+.ba:has(.ba__range:focus-visible) { outline: 1px solid var(--accent); outline-offset: 4px; }
+/* self-scrolling page shot */
+.sv { position: relative; container-type: size; aspect-ratio: 1366 / 800; }
+.sv .sv__img { position: absolute; left: 0; top: 0; width: 100%; height: auto; will-change: transform; animation: sv-scroll 26s cubic-bezier(.45, 0, .55, 1) infinite; animation-play-state: paused; }
+.sv.is-on .sv__img { animation-play-state: running; }
+@keyframes sv-scroll { 0%, 6% { transform: translateY(0); } 86%, 92% { transform: translateY(calc(-100% + 100cqh)); } 100% { transform: translateY(0); } }
+/* more projects */
+.cx__more { padding: clamp(80px, 14vh, 144px) 0 0; border-top: 1px solid var(--rule); margin-top: clamp(64px, 12vh, 128px); }
+.cx__moreh { font-family: var(--display); font-weight: 600; font-size: var(--h2); letter-spacing: -.02em; margin: 0 0 clamp(32px, 5vh, 48px); color: #fff; }
+.cx__morerow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); }
+.cx__card { display: flex; flex-direction: column; gap: 12px; color: var(--ink); text-decoration: none; }
+.cx__cardimg { display: grid; place-items: center; aspect-ratio: 1 / 1; overflow: hidden; background: #141414; }
+.cx__cardimg img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.cx__card:hover .cx__cardimg img { transform: scale(1.04); }
+.cx__card:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+.cx__cardrow { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.cx__cardt { font-family: var(--display); font-weight: 600; font-size: clamp(18px, 1.4vw, 22px); letter-spacing: -.02em; transition: color .3s; }
+.cx__card:hover .cx__cardt { color: var(--accent); }
+.cx__cards, .cx__cardy { color: var(--muted); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.cx__missing { padding: 8vh 0; } .cx__missing h1 { font-family: var(--display); font-weight: 600; font-size: var(--h2); margin: 0 0 16px; } .cx__missing p { color: var(--muted); font-size: var(--body); margin: 0 0 32px; }
+.cx-anim .cx-rise { opacity: 0; transform: translateY(24px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
+.cx-anim .cx-rise.is-in { opacity: 1; transform: none; }
+.cx-anim .cx__body.cx-rise { transition-delay: .08s; }
+@media (max-width: 900px) { .cx__meta { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cx__metai:nth-child(3) { padding-left: 0; border-left: 0; } .cx__metai:nth-child(n+3) { border-top: 1px solid #2A2A2A; } .cx__morerow { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cx__morerow > :nth-child(3) { display: none; } }
+@media (max-width: 700px) { .cx__sec { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: clamp(48px, 9vh, 72px) 0 32px; } .cx__media--3 { grid-template-columns: minmax(0, 1fr); } .cx__morerow { grid-template-columns: minmax(0, 1fr); } .cx__morerow > :nth-child(3) { display: flex; } .sv { aspect-ratio: 4 / 3 !important; } }
+@media (prefers-reduced-motion: reduce) { .sv { overflow-y: auto; } .sv .sv__img { position: static; animation: none; } .cx__cardimg img { transition: none; } }
+</style>
 </head>
-<body class="lux">
-
+<body>
 <a class="skip" href="#main">Skip to content</a>
+<canvas id="bg" aria-hidden="true"></canvas>
 
-<nav class="nav" id="nav" data-shown="true" aria-label="Sections">
-  <a class="nav__name" href="index.html"><img class="nav__logo" src="images/logo.svg" alt="" width="40" height="19"><span class="nav__wordmark">Aezel Santillana</span></a>
-  <div class="nav__links">
+<header class="top" id="nav">
+  <div class="logo"><a href="index.html" aria-label="Aezel Santillana, home"><svg viewBox="0 0 264 124" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><path id="asTop" d="M173 0H239V72H173A36 36 0 0 1 173 0Z"/><path id="asBot" d="M162 51H227.5A36.5 36.5 0 0 1 227.5 124H162Z"/><clipPath id="asTopClip"><use href="#asTop"/></clipPath></defs><path d="M0 124L123 1V124Z" fill="#5400D2"/><use href="#asTop" fill="#E1275B"/><use href="#asBot" fill="#5F77FF"/><use href="#asBot" fill="#5400D2" clip-path="url(#asTopClip)"/></svg></a></div>
+  <nav class="menu" aria-label="Main">
     <a href="work.html"><i>01</i> Work</a>
-    <a href="passion.html"><i>02</i> Passion projects</a>
-    <a href="about.html"><i>03</i> About</a>
-    <a class="nav__cta" href="index.html#contact">Contact me</a>
-  </div>
-</nav>
+    <a href="playground.html" class="hide-s">02 Playground</a>
+    <a href="about.html">03 About</a>
+    <a href="index.html#contact"><b>04 Contact me</b></a>
+  </nav>
+</header>
 
-<main class="lx" id="main">
+<main id="main">
   <div id="projectDetail"></div>
+  <footer class="lf">
+    <span>© <span id="yr">2026</span> Aezel Santillana · UI/UX Designer</span>
+    <span>Manila / <time id="mnl">--:--</time></span>
+    <span class="lf__links">
+      <a href="https://www.linkedin.com/in/aezel-santillana-06a93380" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+      <a href="https://www.behance.net/aezelcabrales1" target="_blank" rel="noopener noreferrer">Behance <span aria-hidden="true">↗</span></a>
+      <a href="https://www.upwork.com/freelancers/~0197da35db298e4c20?mp_source=share" target="_blank" rel="noopener noreferrer">Upwork <span aria-hidden="true">↗</span></a>
+    </span>
+  </footer>
 </main>
 
-<footer class="lf">
-  <div class="lf__in mono">
-    <span>© <span id="yr">2026</span> Aezel Santillana · UI/UX Designer</span>
-    <span>Manila <span id="mnl"></span></span>
-    <span class="lf__links">
-      <a href="https://www.linkedin.com/in/aezel-santillana-06a93380" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-      <a href="https://www.behance.net/aezelcabrales1" target="_blank" rel="noopener noreferrer">Behance ↗</a>
-      <a href="https://www.upwork.com/freelancers/~0197da35db298e4c20?mp_source=share" target="_blank" rel="noopener noreferrer">Upwork ↗</a>
-    </span>
-  </div>
-</footer>
-
-<script src="projects.js"></script>
 <script>
+/* hero glitch: on arrival the image glitches in (blocks fill in, slices tear sideways, a red and blue split),
+   then it sits clean and sharp. Every several seconds a short glitch burst runs over it. */
+function mosaic(fig, media) {
+  var cv = document.createElement("canvas"); cv.className = "cx__mosaic"; cv.setAttribute("aria-hidden", "true"); fig.appendChild(cv); fig.classList.add("has-mosaic");
+  var g = cv.getContext("2d"), W = 0, H = 0, dpr = 1, CELL = 14, cols = 0, rows = 0, delay = null, inView = false, start = 0, burstAt = 0, burstLen = 0, nextBurst = 0, seen = false;
+  function size() {
+    var r = fig.getBoundingClientRect(); if (!r.width) return;
+    dpr = Math.min(2, window.devicePixelRatio || 1); W = r.width; H = r.height;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    CELL = Math.max(10, Math.round(W / 60)); cols = Math.ceil(W / CELL); rows = Math.ceil(H / CELL);
+    delay = new Float32Array(cols * rows);
+    for (var i = 0; i < delay.length; i++) { var y = (i / cols) | 0, x = i % cols; delay[i] = ((y / rows) * .5 + Math.random() * .5) * .75 + (Math.floor(x / 5) % 3) * .03; }
+  }
+  function ready() { return media.tagName === "VIDEO" ? media.readyState >= 2 : media.complete && media.naturalWidth; }
+  function srcSize() { return media.tagName === "VIDEO" ? [media.videoWidth, media.videoHeight] : [media.naturalWidth, media.naturalHeight]; }
+  /* one horizontal slice of the image, shifted sideways */
+  function slice(y, h, dx, s) { g.drawImage(media, 0, y * s[1] / H, s[0], h * s[1] / H, dx, y, W, h); }
+  function glitch(k, s) {
+    var n = Math.round(3 + k * 9);
+    for (var i = 0; i < n; i++) {
+      var y = Math.random() * H, h = 2 + Math.random() * (H * .09) * k, dx = (Math.random() - .5) * W * .12 * k;
+      slice(y, h, dx, s);
+      if (Math.random() < .5) { g.globalCompositeOperation = "screen"; g.globalAlpha = .55 * k;
+        g.fillStyle = Math.random() < .5 ? "#E1275B" : "#5F77FF"; g.fillRect(dx < 0 ? 0 : dx, y, W * (.2 + Math.random() * .8), Math.max(1, h * .5));
+        g.globalCompositeOperation = "source-over"; g.globalAlpha = 1; }
+    }
+    /* a few dark blocks snap on and off */
+    g.fillStyle = "#0A0A0A";
+    for (var b = 0, nb = Math.round(k * 8); b < nb; b++) g.fillRect(Math.floor(Math.random() * cols) * CELL, Math.floor(Math.random() * rows) * CELL, CELL * (1 + Math.floor(Math.random() * 4)), CELL * (1 + Math.floor(Math.random() * 2)));
+    /* red and blue edges, offset */
+    g.globalCompositeOperation = "screen"; g.globalAlpha = .35 * k;
+    g.drawImage(cv, 6 * k * dpr, 0, cv.width, cv.height, 6 * k, 0, W, H);
+    g.globalCompositeOperation = "source-over"; g.globalAlpha = 1;
+  }
+  function draw(now) {
+    requestAnimationFrame(draw);
+    if (!inView || !cols || !ready()) return;
+    if (!seen) { seen = true; start = now; nextBurst = now + 3800 + Math.random() * 3000; }
+    var s = srcSize(), el = (now - start) / 1000;
+    g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+    g.drawImage(media, 0, 0, W, H);
+    if (el < 1.1) {   /* arrival: blocks fill in top-down while the image tears */
+      g.fillStyle = "#0A0A0A";
+      for (var y = 0; y < rows; y++) for (var x = 0; x < cols; x++) if (el < delay[y * cols + x]) g.fillRect(x * CELL, y * CELL, CELL, CELL);
+      glitch(Math.max(0, 1 - el / 1.1), s);
+    } else if (now >= nextBurst && !burstAt) { burstAt = now; burstLen = 220 + Math.random() * 260; }
+    if (burstAt) {
+      var t = (now - burstAt) / burstLen;
+      if (t >= 1) { burstAt = 0; nextBurst = now + 4500 + Math.random() * 4500; }
+      else if (Math.random() < .8) glitch(.35 + .65 * Math.sin(t * Math.PI), s);
+    }
+  }
+  if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { es.forEach(function (e) { inView = e.isIntersecting; }); }, { threshold: .15 }).observe(fig);
+  else inView = true;
+  var ro = window.ResizeObserver ? new ResizeObserver(size) : null; if (ro) ro.observe(fig); else window.addEventListener("resize", size);
+  size(); requestAnimationFrame(draw);
+}
+var PROJECTS = [{"slug":"deductive-lab","title":"Deductive Lab","client":"DeductiveLab","year":"2024 - 2025","role":"UI/UX Designer, Brand Designer","tags":["Logo Design","LMS Dashboard","Web Design"],"card":"images/deductive-lab-laptop-card.webp","case":{"headline":"Brand and website refresh for a consulting firm focused on IT troubleshooting training","scope":"Logo, Branding, Web, LMS","hero":{"src":"images/deductive-lab-laptop.webp","alt":"The Deductive Lab landing page on a dark laptop, with the headline Build High Performing Teams with Standardized Troubleshooting Training and AI-Driven Tools."},"overview":{"text":["Deductive Lab is a consulting firm that trains IT teams in standardized troubleshooting. It offers courses, AI-driven tools and team certification through its own learning platform.","The website already existed, but it felt too generic and lacked a distinctive visual element that would give the brand more personality and make it easier to recognize.","My task was to improve the website visually and conceptually. I focused on creating a characteristic brand element that could give Deductive Lab its own personality. I also worked on improving the LMS structure and overall usability, making it easier for users to navigate, access learning materials, and move through the platform."],"media":[{"before":{"src":"images/deductive-lab-before.webp","alt":"The old Deductive Lab homepage: a white D logo and the line The Science of Logic in IT Troubleshooting over a photo of a city skyline."},"after":{"src":"images/deductive-lab-after.webp","alt":"The redesigned Deductive Lab homepage: a green hexagon logo, the headline Build High Performing Teams with Standardized Troubleshooting Training and AI-Driven Tools, and an illustration of green laptops on dark navy."},"ratio":"3394 / 1610"}]},"challenge":{"text":["Deductive Lab already had strong content and a trusted, founder-led brand. What it lacked was a learning experience that felt connected.","Learners could reach many parts of the product, but there was no clear path tying them together. The platform was functioning more like a content library than a guided learning experience."],"media":[[{"video":{"src":"images/deductive-lab-logo-animation.mp4","poster":"images/deductive-lab-logo-animation-poster.webp","alt":"Animated Deductive Lab logo: white pixels assemble into the nodes mark, the green hexagon pops in behind, and the wordmark Deductive Lab rises letter by letter."},"ratio":"16 / 9"}],[{"src":"images/deductive-lab-logo-construction.webp","alt":"Deductive Lab logo construction: the hexagon and nodes mark on a fine grid with guide lines, 30-degree diagonals and dimension markers."},{"src":"images/deductive-lab-colour-palette.webp","alt":"Deductive Lab colour palette: Swamp #00101A and Spring green #00EE88, with supporting shades Navy raised #002136, Green shade #04C16F, Aqua #05D6C9 and Mint #29EDA2."}]]},"approach":{"text":["I approached the redesign as one guided path, from the first visit to the last lesson. It started with conversations with the founder and interviews with IT professionals, to better understand how they use courses.","Before enrolling, learners needed to see where a course would take them, so I designed a curriculum roadmap on the course page that lays it out module by module. After enrolling, they needed one place to pick up where they left off, so I designed a dashboard that shows their courses, hours and progress at a glance, with a single clear button to continue. Inside a course, lessons are grouped into modules with a progress bar, so a learner always knows what's done and what comes next.","To give the brand its own personality, I created the hexagon mark and carried its green and navy through every screen, so the website and the platform feel like one product."],"media":[[{"src":"images/deductive-lab-lesson.webp","alt":"Deductive Lab lesson player: course path on the left with a progress bar and lesson list, and the lesson video on the right."}],[{"src":"images/deductive-lab-my-courses.webp","alt":"Deductive Lab My Courses dashboard: learner stats for courses, hours, posts, certificates and messages, a course search and four course cards with progress bars."},{"src":"images/deductive-lab-progress.webp","alt":"Deductive Lab course progress screen: a progress bar, collapsible modules marked completed, and lessons tagged Video, PDF and Challenge."}]]},"outcome":{"text":["The result is a more distinctive website and a guided learning platform that keep Deductive Lab's strong content and founder-led trust, but add a recognizable brand character and a clear path through every course. The new hexagon mark helps Deductive Lab feel more modern, memorable, and recognizable within the IT training space.","The project helped Deductive Lab shift from a content-heavy platform into a more guided AI learning experience."],"media":[[{"scroll":{"src":"images/deductive-lab-course-page.webp","alt":"Deductive Lab course page, scrolling from the hero and course stats through the curriculum roadmap, success stories, pricing plans and the coach section."},"ratio":"1366 / 800"}]]}}},{"slug":"dibsd","title":"Dibsd","client":"Dibsd","year":"October 2025","role":"UX/UI Design","tags":["Mobile App","UX Research","UI Design","Marketplace"],"card":"images/dibsd-hand-card.webp","case":{"headline":"Designing a mobile app for a ticket resale platform","scope":"Mobile app","hero":{"video":"images/dibsd-screens-motion.mp4","poster":"images/dibsd-screens-motion-poster.webp","src":"images/dibsd-card.webp","alt":"Columns of Dibsd app screens sliding up in a loop: onboarding, search, event page, ticket browsing, ticket details, checkout, my ticket and seller profile."},"overview":{"text":["Dibsd is a ticket resale platform where people buy and sell tickets for the events they love. Its aim is to make resale feel safe, so that every ticket bought on Dibsd gets the buyer through the door.","I worked on the project as a UX/UI designer. I designed the mobile interface, joined online meetings with the client, and worked closely with the developer so the design stayed visually consistent and was clear and practical to build."],"media":[[{"src":"images/dibsd-information-architecture.webp","alt":"Dibsd information architecture: onboarding splits into a buyer branch (discover events, search, seat map, checkout, ticket wallet), a seller branch (list, verify and price tickets, seller hub, payouts) and a shared account branch (messages, notifications, help center, profile)."}]]},"challenge":{"text":["The main challenge was that Dibsd works two ways. Every ticket has a seller who lists it and a buyer who looks for it, and each of them comes to the app with a different goal.","That meant designing two sets of screens, one for sellers and one for buyers, that still feel like one app. Both sides also had to trust each other, because scams, invalid tickets and sky-rocketing prices make people hesitate before a single ticket changes hands."],"media":[[{"src":"images/dibsd-home.webp","alt":"Dibsd home screen: a search bar, trending events with date, venue and from-price, category chips and an event list."},{"src":"images/dibsd-ticket.webp","alt":"Dibsd ticket details for Moulin Rouge! The Musical: row D seat 186 at $56.00, an Official Box Office note, a Buyer Guaranteed Protected note, and Chat Seller and Buy Ticket buttons."},{"src":"images/dibsd-account.webp","alt":"Dibsd seller account: rating, reviews, sales and followers, Trusted Seller and Quick Responder badges, and Listings, Sold and Reviews tabs."}]]},"approach":{"text":["I started with why people hesitate to buy tickets online, then set one goal: every ticket bought on Dibsd results in a valid entry. From there I explored ways to build trust into the app and designed the search, ticket details and seller account screens around it.","To understand the market, I ran a competitive analysis of three established resale platforms, SeatGeek, TicketSwap and StubHub, to see where they earn buyers' trust and where they lose it. SeatGeek has strong visuals and a smooth mobile experience, but occasional ticket validity and support issues. TicketSwap builds trust with fair pricing and its SecureSwap anti-fraud system, but has limited features. StubHub has the largest inventory, but hidden fees and low transparency hurt its credibility. The opportunity for Dibsd was to bring the best of these together: clear visuals, upfront pricing and verified listings in one app.","The home screen leads with search, trending events and category chips. The ticket screen puts row, seat and price first, with the Official Box Office and Buyer Guaranteed notes just above Chat Seller and Buy Ticket. Seller profiles show rating, reviews, sales and badges like Trusted Seller and Quick Responder, so a buyer can check a seller before buying.","The app works within Dibsd's brand: teal for buttons, prices and active states, white space for calm, and a few playful accents in yellow, blue, green and orange."],"media":[[{"src":"images/dibsd-competitive-analysis.webp","alt":"Competitive analysis of SeatGeek, TicketSwap and StubHub: each card lists strengths, weaknesses and the UX opportunity for Dibsd."}],[{"src":"images/dibsd-user-personas.webp","alt":"User personas for Dibsd: Mia, 19, student; Jake, 22, young professional; Russel, 37, millennial; Anna, 20, student; Ella, 34, millennial, each with their ticket buying or selling needs."}]]},"outcome":{"text":["One promise on every screen: a ticket that gets you in.","I delivered the home and search, ticket details and seller account screens, each one built to answer a buyer's doubts before they reach the Buy Ticket button. Together they make Dibsd a single platform that verifies every event ticket is valid before it is sold. It regulates the percentage profit sellers can make, while still giving them the option to set their own prices. Each listing also carries a safety score that shows buyers the result of the app's 5-step check, so they know their entry to the event is guaranteed."],"media":[[{"src":"images/dibsd-screens-callouts.webp","alt":"Three Dibsd screens with callouts: every event shows its starting price upfront, listings can be sorted by price to find the best seat for a budget, and users can read feedback and share their own experiences after purchasing."}]]}}},{"slug":"iseeju","title":"Iseeju Dating App","client":"Iseeju","year":"September to November 2024","role":"UI/UX Design","tags":["Mobile App","UI Design","Dating"],"card":"images/iseeju-card.webp","case":{"headline":"Designing a dating app that makes finding a match feel simple","scope":"Mobile app","hero":{"src":"images/iseeju-hero.webp","alt":"Two Iseeju phones on a purple and pink background: the onboarding screen Find your best match and the Log in screen."},"overview":{"text":["Iseeju is a dating app inspired by real-world dating apps. People discover profiles nearby, find their best match and start a conversation.","The screens follow a flat, minimal style that keeps the user experience the priority, and the designs were delivered in Figma and Adobe Photoshop."],"media":[[{"src":"images/iseeju-style-guide.webp","alt":"Iseeju style guide: Montserrat Semi Bold and Regular type specimens, and the colour palette Love Pink #FE456E, Coral #FF5D5F, Violet #834FFD, Ink #1A1A1A and Teal #00BDD1."}]]},"challenge":{"text":["Dating apps ask people to trust strangers, and many fall short. Fake profiles and scams, privacy risks, high data use, payment fraud and a constant stream of notifications wear that trust down. Swiping is designed to keep people hooked rather than help them meet, and matches often feel random.","The challenge for Iseeju was to make finding a match feel safe and simple: verify who people are, moderate the community, protect personal data, keep the app light and quiet, secure every payment, and guide people from a match to a real conversation."],"media":[[{"src":"images/iseeju-information-architecture.webp","alt":"Iseeju information architecture: Start Screen leads to Login then Verification, or Registration then User Info; both open My Profile (Account, Security, Favorites), Search (Nearby), Dashboard (Members, Skill Tree, Spin the Wheel, Coins Packages, Gallery) and Chat (Stickers, Smileys)."}]]},"approach":{"text":["I started by mapping the information architecture, so every key flow, from sign up to search, dashboard and chat, was no more than a few taps away. From there I set up a small style guide with Montserrat and a bright pink, coral and violet palette, so the app felt warm and playful without getting noisy.","The screens follow a flat, minimal style that puts people's photos and messages first. Three short onboarding screens explain the app in one line each, and sign up is kept to a few steps, with social log in and email verification to keep accounts real."],"media":[[{"src":"images/iseeju-onboarding.webp","alt":"Three Iseeju onboarding screens on phones: Find your best match, Discover people around and Start a conversation, each with a Log in button."}],[{"src":"images/iseeju-login-signup.webp","alt":"Three Iseeju phones: the Log in screen with social and email options, the Create Account sign up screen, and the Verify your email code entry with a number pad."}]]},"outcome":{"text":["The result is a complete set of app screens, from onboarding and sign up to search, profiles and chat, delivered in Figma and Adobe Photoshop and ready for development.","Iseeju launches with four key features: smart search filters, private chat, live features that show who is online nearby, and trending local events. Together they give people a safer, simpler way to find a match and start a real conversation."],"media":[[{"src":"images/iseeju-features.webp","alt":"Iseeju key features around a phone showing the New Members screen: Innovative Suchoptionen (search filters by age, distance and interests), Diskreter Chat (private, secure messaging), Live Funktions (see who is online nearby) and Trending Events (popular local events), with App Store and Google Play badges."}]]}}},{"slug":"akbar-academy","title":"Akbar Academy","client":"Akbar Academy","role":"UI/UX Design","tags":["Dashboard","Web Design","UI Design"],"card":"images/akbar-academy-card.webp","case":{"headline":"Designing a registration dashboard for an online tutoring academy","scope":"Web app, Registration, Dashboard","hero":{"src":"images/akbar-academy-hero.webp","alt":"Akbar Academy student portal on a laptop resting on a concrete ledge, seen from a low angle against a dark background with a blue glow."},"overview":{"text":["Akbar Academy is an online academy that teaches GCSE, IGCSE, AS and A2 level courses to students around the world. Before the first lesson, every new student has to register, choose subjects and an exam board, share their school grades, pick a class time and pay.","I designed that registration journey and the portal students and parents land on afterwards, for desktop and mobile."],"media":[]},"challenge":{"text":["Registration was split across separate pages for students and parents, with long forms and no sense of how many steps were left. Students and parents also had to be linked to each other, and one parent could be managing more than one child.","The challenge was to turn a long sign up into one clear path, and give students and parents a single place to see their courses, class times, payments and messages."],"media":[[{"src":"images/akbar-academy-registration-flow.webp","alt":"Five Akbar Academy registration screens in browser windows, cascading left to right: Select Subjects, Select Course, Enter your school grades, Select Class and Make Payment, each with the six-step progress bar at the top."}]]},"approach":{"text":["I broke registration into six numbered steps: Register, Subject, Course, Grades, Class and Payment. A progress bar at the top shows where you are, and each step asks for one thing at a time. Courses are grouped by level (Half Syllabus, Full Syllabus, AS Level, A2 Level) with the exam board on each option, and class times show how many slots are left.","After registering, students and parents share one portal layout. It shows linked accounts, the academic year, each subject with its course and class schedule, credits and payment, and a calendar. Parents can switch between their children, and an unfinished step, like choosing a class, is flagged right where it belongs."],"media":[[{"src":"images/akbar-academy-dashboards.webp","alt":"Two laptops side by side on a concrete ledge: the Akbar Academy Parent Portal with linked students and credits, and the Student Portal with linked parents, subjects and a calendar."}]]},"outcome":{"text":["The result is a complete registration flow and portal for desktop and mobile, covering students and parents, empty and pending states, and the pop ups for each step, delivered in Figma and ready for development.","The design gives new students one guided path from sign up to their first class, and gives parents a clear view of every child's courses, schedule and payments in one place."],"media":[[{"scroll":{"src":"images/akbar-academy-student-dashboard.webp","alt":"The full Akbar Academy Student Portal page: welcome header, linked parents, payment and credits, academic year, Physics, Chemistry and Math courses with class schedules, and a calendar."},"ratio":"1440 / 900"}]]}}}];
 (function () {
-  var yr = document.getElementById("yr"); if (yr) yr.textContent = new Date().getFullYear();
-  var mnl = document.getElementById("mnl");
-  var tick = function () { try { mnl.textContent = new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Manila", hour: "2-digit", minute: "2-digit" }); } catch (e) {} };
-  if (mnl) { tick(); setInterval(tick, 30000); }
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+  var PARTS = [["overview", "Overview"], ["challenge", "Challenge"], ["approach", "Approach"], ["outcome", "Outcome"]];
+  function compare(m) {
+    var f = el("figure", "cx__fig ba cx-rise"); if (m.ratio) f.style.aspectRatio = m.ratio;
+    [["after", m.after, "After"], ["before", m.before, "Before"]].forEach(function (s) {
+      var l = el("div", "ba__layer ba__layer--" + s[0]), im = el("img");
+      im.src = s[1].src; im.alt = s[1].alt || s[2]; im.loading = "lazy"; im.decoding = "async"; im.draggable = false;
+      l.appendChild(im); l.appendChild(el("span", "ba__tag", s[2])); f.appendChild(l);
+    });
+    var bar = el("span", "ba__bar"); bar.setAttribute("aria-hidden", "true"); bar.appendChild(el("span", "ba__knob", "‹ ›")); f.appendChild(bar);
+    var r = el("input", "ba__range"); r.type = "range"; r.min = 0; r.max = 100; r.value = 50; r.step = "any";
+    r.setAttribute("aria-label", "Drag to compare before and after");
+    var set = function () { f.style.setProperty("--pos", r.value + "%"); };
+    r.addEventListener("input", set); set(); f.appendChild(r);
+    return f;
+  }
+  function scrollShot(m) {
+    var f = el("figure", "cx__fig cx-rise sv"); if (m.ratio) f.style.aspectRatio = m.ratio; f.tabIndex = 0;
+    var im = el("img", "sv__img"); im.src = m.scroll.src; im.alt = m.scroll.alt || ""; im.loading = "lazy"; im.decoding = "async"; f.appendChild(im);
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { es.forEach(function (e) { f.classList.toggle("is-on", e.isIntersecting); }); }, { threshold: .25 }).observe(f);
+    else f.classList.add("is-on");
+    return f;
+  }
+  function video(m) {
+    var f = el("figure", "cx__fig cx-rise"); if (m.ratio) f.style.aspectRatio = m.ratio;
+    var v = document.createElement("video");
+    v.src = m.video.src; v.muted = true; v.loop = true; v.playsInline = true; v.preload = "metadata";
+    v.setAttribute("muted", ""); v.setAttribute("playsinline", "");
+    if (m.video.poster) v.poster = m.video.poster;
+    if (m.video.alt) v.setAttribute("aria-label", m.video.alt);
+    f.appendChild(v);
+    if (reduce) v.controls = true;
+    else if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { es.forEach(function (e) {
+      if (e.isIntersecting) { v.currentTime = 0; var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } else v.pause(); }); }, { threshold: .4 }).observe(f);
+    else v.autoplay = true;
+    return f;
+  }
+  function media(list) {
+    var box = el("div", "cx__media cx__media--" + Math.min(list.length, 3));
+    list.forEach(function (m) {
+      if (m.before || m.after) return box.appendChild(compare(m));
+      if (m.scroll) return box.appendChild(scrollShot(m));
+      if (m.video) return box.appendChild(video(m));
+      var f = el("figure", "cx__fig cx-rise"), im = el("img"); im.src = m.src; im.alt = m.alt || ""; im.loading = "lazy"; im.decoding = "async"; f.appendChild(im); box.appendChild(f);
+    });
+    return box;
+  }
+  var mount = document.getElementById("projectDetail");
+  var slug = new URLSearchParams(location.search).get("p");
+  var p = PROJECTS.filter(function (x) { return x.slug === slug; })[0];
+  if (!p) {
+    var miss = el("div", "cx__missing");
+    miss.appendChild(el("h1", null, "That project isn't here."));
+    miss.appendChild(el("p", null, slug ? "Nothing matches “" + slug + "”. It may have been renamed." : "No project was named in the address."));
+    var back = el("a", "mbtn", "Back to all work"); back.href = "work.html"; var g = el("span", "glow"); g.appendChild(back); miss.appendChild(g);
+    mount.appendChild(miss); return;
+  }
+  document.title = p.title + " · Aezel Santillana";
+  var c = p.case, wrap = el("article", "cx__in");
+  var bk = el("a", "cx__back"); bk.href = "work.html"; bk.innerHTML = '<span aria-hidden="true">←</span> All work'; wrap.appendChild(bk);
+  wrap.appendChild(el("p", "cx__eyebrow", p.client || p.title));
+  wrap.appendChild(el("h1", "cx__h", c.headline || p.title));
+  var meta = el("dl", "cx__meta");
+  [["Scope", c.scope || p.tags.join(", ")], ["Role", p.role], ["Client", p.client], ["Year", p.year]].forEach(function (m) {
+    if (!m[1]) return; var d = el("div", "cx__metai"); d.appendChild(el("dt", null, m[0])); d.appendChild(el("dd", null, m[1])); meta.appendChild(d);
+  });
+  wrap.appendChild(meta);
+  var hero = c.hero, hf = el("figure", "cx__hero");
+  if (hero.video) {
+    var hv = document.createElement("video"); hv.src = hero.video; hv.muted = true; hv.loop = true; hv.playsInline = true; hv.preload = "auto";
+    hv.setAttribute("muted", ""); hv.setAttribute("playsinline", ""); if (hero.poster) hv.poster = hero.poster; if (hero.alt) hv.setAttribute("aria-label", hero.alt);
+    if (reduce) hv.controls = true; else { hv.autoplay = true; hv.setAttribute("autoplay", ""); }
+    hf.appendChild(hv);
+  } else { var hi = el("img"); hi.src = hero.src; hi.alt = hero.alt || ""; hi.decoding = "async"; hf.appendChild(hi); }
+  wrap.appendChild(hf);
+  if (!reduce) mosaic(hf, hf.querySelector("img, video"));
+  PARTS.forEach(function (part, i) {
+    var data = c[part[0]] || {}; if (!data.text || !data.text.length) return;
+    var sec = el("section", "cx__sec"); sec.id = part[0];
+    var h = el("h2", "cx__label cx-rise"); h.appendChild(el("span", "n", String(i + 1).padStart(2, "0"))); h.appendChild(el("span", "t", part[1])); sec.appendChild(h);
+    var body = el("div", "cx__body cx-rise"); data.text.forEach(function (t) { body.appendChild(el("p", null, t.replace(/\*\*/g, ""))); }); sec.appendChild(body);
+    wrap.appendChild(sec);
+    if (data.media && data.media.length) {
+      var rows = Array.isArray(data.media[0]) ? data.media : [data.media];
+      rows.forEach(function (row, ri) { var mb = media(row); if (ri) mb.classList.add("cx__media--next"); wrap.appendChild(mb); });
+    }
+  });
+  var others = PROJECTS.filter(function (x) { return x !== p; }).slice(0, 3);
+  var more = el("section", "cx__more"); more.appendChild(el("h2", "cx__moreh", "More projects"));
+  var row = el("div", "cx__morerow");
+  others.forEach(function (o) {
+    var a = el("a", "cx__card"); a.href = "project.html?p=" + encodeURIComponent(o.slug);
+    var mi = el("span", "cx__cardimg"), ci = el("img"); ci.src = o.card; ci.alt = ""; ci.loading = "lazy"; mi.appendChild(ci); a.appendChild(mi);
+    var line = el("span", "cx__cardrow"); line.appendChild(el("span", "cx__cardt", o.title)); line.appendChild(el("span", "cx__cardy", o.year || "")); a.appendChild(line);
+    a.appendChild(el("span", "cx__cards", (o.case && o.case.scope) || o.tags.slice(0, 2).join(", ")));
+    row.appendChild(a);
+  });
+  more.appendChild(row); wrap.appendChild(more);
+  mount.appendChild(wrap);
+  try { history.scrollRestoration = "manual"; } catch (e) {}
+  window.scrollTo(0, 0);
+  if (!reduce && "IntersectionObserver" in window) {
+    document.documentElement.classList.add("cx-anim");
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }); }, { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+    wrap.querySelectorAll(".cx-rise").forEach(function (n) { io.observe(n); });
+  }
+})();
+(function () {
+  document.getElementById("yr").textContent = new Date().getFullYear();
+  var mnl = document.getElementById("mnl"), fmt; try { fmt = new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Manila", hour: "numeric", minute: "2-digit" }); } catch (e) {}
+  var tick = function () { if (fmt) mnl.textContent = fmt.format(new Date()); }; tick(); setInterval(tick, 20000);
+  var nav = document.getElementById("nav"), ns = function () { nav.classList.toggle("is-solid", window.scrollY > 40); };
+  window.addEventListener("scroll", ns, { passive: true }); ns();
 })();
 </script>
-<script src="fx.js" defer></script>
+<script>
+/* background: a sparse polygon line network, lit by three drifting lights and the cursor (same idea as the home page) */
+(function () {
+  var cv = document.getElementById("bg"), ctx = cv.getContext("2d");
+  var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var W, H, dpr, lines, glowC, gctx, seed = 7;
+  var rnd = function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+  var mouse = { x: -9999, y: -9999 };
+  function build() {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    seed = 7;
+    var n = Math.round(Math.max(36, Math.min(90, W * H / 18000))), pts = [];
+    for (var i = 0; i < n; i++) pts.push([rnd() * W * 1.1 - W * .05, rnd() * H * 1.1 - H * .05]);
+    lines = document.createElement("canvas"); lines.width = cv.width; lines.height = cv.height;
+    var l = lines.getContext("2d"); l.scale(dpr, dpr); l.lineWidth = 1; l.strokeStyle = "#fff";
+    var seen = {};
+    pts.forEach(function (p, i) {
+      var d = pts.map(function (q, j) { return [j, (q[0] - p[0]) * (q[0] - p[0]) + (q[1] - p[1]) * (q[1] - p[1])]; }).sort(function (a, b) { return a[1] - b[1]; });
+      for (var k = 1; k <= 3; k++) {
+        var j = d[k][0], key = i < j ? i + "_" + j : j + "_" + i;
+        if (seen[key]) continue; seen[key] = 1;
+        l.beginPath(); l.moveTo(p[0], p[1]); l.lineTo(pts[j][0], pts[j][1]); l.stroke();
+      }
+      l.fillStyle = "#fff"; l.fillRect(p[0] - 1, p[1] - 1, 2, 2);
+    });
+    glowC = document.createElement("canvas"); glowC.width = cv.width; glowC.height = cv.height; gctx = glowC.getContext("2d");
+  }
+  var lights = [
+    { c: "139,92,246", r: .55, sx: .00011, sy: .00007, px: 0, py: 1 },
+    { c: "95,119,255", r: .45, sx: .00008, sy: .00013, px: 2, py: 4 },
+    { c: "139,92,246", r: .40, sx: .00014, sy: .00009, px: 4, py: 2 }
+  ];
+  function frame(t) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    ctx.globalAlpha = .045; ctx.drawImage(lines, 0, 0); ctx.globalAlpha = 1;   /* the faint base network */
+    gctx.globalCompositeOperation = "source-over"; gctx.clearRect(0, 0, glowC.width, glowC.height);
+    var m = Math.max(W, H);
+    lights.forEach(function (L) {
+      var x = (.5 + .42 * Math.sin(t * L.sx + L.px)) * W, y = (.5 + .42 * Math.cos(t * L.sy + L.py)) * H, r = L.r * m;
+      var g = gctx.createRadialGradient(x * dpr, y * dpr, 0, x * dpr, y * dpr, r * dpr);
+      g.addColorStop(0, "rgba(" + L.c + ",.55)"); g.addColorStop(1, "rgba(" + L.c + ",0)");
+      gctx.fillStyle = g; gctx.fillRect(0, 0, glowC.width, glowC.height);
+    });
+    if (mouse.x > -999) {
+      var g2 = gctx.createRadialGradient(mouse.x * dpr, mouse.y * dpr, 0, mouse.x * dpr, mouse.y * dpr, 260 * dpr);
+      g2.addColorStop(0, "rgba(180,150,255,.7)"); g2.addColorStop(1, "rgba(139,92,246,0)");
+      gctx.fillStyle = g2; gctx.fillRect(0, 0, glowC.width, glowC.height);
+    }
+    gctx.globalCompositeOperation = "destination-in"; gctx.drawImage(lines, 0, 0);   /* light only where the lines are */
+    ctx.drawImage(glowC, 0, 0);
+    if (!calm) requestAnimationFrame(frame);
+  }
+  build();
+  window.addEventListener("resize", function () { build(); if (calm) frame(0); });
+  window.addEventListener("pointermove", function (e) { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
+  requestAnimationFrame(frame);
+})();
+</script>
 </body>
 </html>
