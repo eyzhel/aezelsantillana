@@ -1,6 +1,14 @@
 /* Playground projects. Placeholders for now: each one gets a generated cover until real images arrive.
    Same fields as the old Passion projects list: title, line, kind (and later img, href). */
 var PLAY = [
+  { title: "Salo Salo Events", kind: "Vibe-coded web app", cover: "salo", href: "https://salosaloevents.com",
+    line: "A directory of party and event suppliers in Metro Manila, Cavite, Laguna and Batangas, with prices shown upfront.",
+    status: "Waitlist open, launching early 2027", tools: "Next.js, Supabase, Netlify, Claude Code", year: "2026",
+    overview: ["Salo Salo Events is a directory where families planning a debut, binyag, birthday or wedding can find local suppliers, from caterers and cake makers to hosts, photobooths and venues.",
+               "Suppliers list for free and show their prices and packages upfront. Families send an inquiry straight from the listing."],
+    process: ["I'm building it myself with Claude Code, one feature at a time: the coming soon page and waitlist, the supplier directory, inquiries, and supplier accounts with Facebook and Google sign-in. Admin pages come next.",
+              "Alongside the build I run the Facebook page and reach out to suppliers, so the directory has real listings before it opens to families."],
+    outcome: ["The coming soon page and the supplier waitlist are live at salosaloevents.com. The full directory opens to families in early 2027."] },
   { title: "Wolf in halftone", kind: "3D · WebGL", line: "Placeholder for a low-poly character study." },
   { title: "Signal garden", kind: "Generative", line: "Placeholder for a generative pattern experiment." },
   { title: "Pocket synth", kind: "Vibe-coded app", line: "Placeholder for a small browser instrument." },
@@ -20,6 +28,7 @@ var PAL = [["#5400D2", "#8B5CF6"], ["#1B1B2E", "#5F77FF"], ["#E1275B", "#5400D2"
 function makeCover(i, w, h) {
   var c = document.createElement("canvas"); c.width = w || 480; c.height = h || 300; var g = c.getContext("2d"), p = PLAY[i];
   g.scale(c.width / 480, c.height / 300);
+  if (p && p.cover === "salo") return saloCover(c, g);
   var sd = 97 + i * 131; function R() { sd = (sd * 16807) % 2147483647; return (sd - 1) / 2147483646; }
     var pal = PAL[i % PAL.length], gr = g.createLinearGradient(0, 0, 480, 300); gr.addColorStop(0, pal[0]); gr.addColorStop(1, pal[1]);
     g.fillStyle = gr; g.fillRect(0, 0, 480, 300);
@@ -37,4 +46,22 @@ function makeCover(i, w, h) {
     }
     g.restore();
     return c;
+}
+
+/* Salo Salo Events cover: the brand's cream, terracotta and mustard, a table of plates seen from above, and the name */
+function saloCover(c, g) {
+  g.fillStyle = "#fbf7f0"; g.fillRect(0, 0, 480, 300);
+  var cols = ["#b5523b", "#c9921a", "#4f7a4a", "#b5523b", "#c9921a", "#7a4a6e"];
+  g.fillStyle = "#f3ddd5"; g.beginPath(); g.ellipse(240, 150, 200, 112, 0, 0, 7); g.fill();
+  for (var k = 0; k < 10; k++) {
+    var a = k / 10 * Math.PI * 2 - Math.PI / 2, x = 240 + Math.cos(a) * 168, y = 150 + Math.sin(a) * 88;
+    g.fillStyle = "#ffffff"; g.beginPath(); g.arc(x, y, 19, 0, 7); g.fill();
+    g.strokeStyle = "#e8dfd3"; g.lineWidth = 2; g.beginPath(); g.arc(x, y, 13, 0, 7); g.stroke();
+    g.fillStyle = cols[k % cols.length]; g.beginPath(); g.arc(x, y, 6, 0, 7); g.fill();
+  }
+  g.fillStyle = "#2a211c"; g.textAlign = "center"; g.textBaseline = "middle";
+  g.font = "600 44px 'PP Mori', 'Helvetica Neue', Arial, sans-serif"; g.fillText("Salo Salo", 240, 138);
+  g.fillStyle = "#b5523b"; g.font = "400 13px 'PP Supply Mono', ui-monospace, monospace";
+  if ("letterSpacing" in g) g.letterSpacing = "4px"; g.fillText("EVENTS", 242, 176);
+  return c;
 }

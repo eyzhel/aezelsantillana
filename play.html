@@ -178,6 +178,8 @@ main { position: relative; z-index: 1; padding: clamp(120px, 20vh, 200px) max(16
 .ph-img { position: relative; margin: 0; display: grid; place-items: center; background-color: rgba(15,15,15,.75); border: 1px dashed #2E2E2E;
   background-image: linear-gradient(#161616 1px, transparent 1px), linear-gradient(90deg, #161616 1px, transparent 1px); background-size: 24px 24px; }
 .ph-img span { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #555; }
+.cx__visit a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; letter-spacing: .04em; }
+.cx__visit a:hover { color: #fff; }
 </style>
 </head>
 <body>
@@ -225,7 +227,7 @@ main { position: relative; z-index: 1; padding: clamp(120px, 20vh, 200px) max(16
   wrap.appendChild(el("p", "cx__eyebrow", "Playground · " + String(q).padStart(2, "0")));
   wrap.appendChild(el("h1", "cx__h", p.title));
   var meta = el("dl", "cx__meta");
-  [["Kind", p.kind], ["Status", "Placeholder"], ["Tools", "To be added"], ["Year", "To be added"]].forEach(function (m) {
+  [["Kind", p.kind], ["Status", p.status || "Placeholder"], ["Tools", p.tools || "To be added"], ["Year", p.year || "To be added"]].forEach(function (m) {
     var d = el("div", "cx__metai"); d.appendChild(el("dt", null, m[0])); d.appendChild(el("dd", null, m[1])); meta.appendChild(d);
   });
   wrap.appendChild(meta);
@@ -238,12 +240,14 @@ main { position: relative; z-index: 1; padding: clamp(120px, 20vh, 200px) max(16
     hg.imageSmoothingEnabled = false; hg.drawImage(tmp, 0, 0, 1280, 800);
   }
   if (reduce) pix(1); else { var t0 = performance.now(); (function go(n) { var t = Math.min(1, (n - t0) / 700); pix(t >= 1 ? 1 : Math.round(48 * Math.pow(1 - t, 2)) + 1); if (t < 1) requestAnimationFrame(go); })(t0); }
-  [["Overview", [p.line, "[Placeholder: what the experiment is, and what sparked it.]"]],
-   ["Process", ["[Placeholder: how it was made, the tools used, and what was tried along the way.]"]],
-   ["Outcome", ["[Placeholder: what came out of it, and a link to the live build if there is one.]"]]].forEach(function (part, k) {
+  [["Overview", p.overview || [p.line, "[Placeholder: what the experiment is, and what sparked it.]"]],
+   ["Process", p.process || ["[Placeholder: how it was made, the tools used, and what was tried along the way.]"]],
+   ["Outcome", p.outcome || ["[Placeholder: what came out of it, and a link to the live build if there is one.]"]]].forEach(function (part, k) {
     var sec = el("section", "cx__sec");
     var h = el("h2", "cx__label cx-rise"); h.appendChild(el("span", "n", String(k + 1).padStart(2, "0"))); h.appendChild(el("span", "t", part[0])); sec.appendChild(h);
-    var body = el("div", "cx__body cx-rise"); part[1].forEach(function (t) { body.appendChild(el("p", null, t)); }); sec.appendChild(body);
+    var body = el("div", "cx__body cx-rise"); part[1].forEach(function (t) { body.appendChild(el("p", null, t)); });
+    if (k === 2 && p.href) { var lk = el("p", "cx__visit"); var la = el("a", null, "Visit " + p.href.replace(/^https?:\/\//, "") + " \u2197"); la.href = p.href; la.target = "_blank"; la.rel = "noopener"; lk.appendChild(la); body.appendChild(lk); }
+    sec.appendChild(body);
     wrap.appendChild(sec);
     if (k === 1) { var row = el("div", "cx__media cx__media--2"); ["Process image", "Process image"].forEach(function (l) { var f = el("figure", "cx__fig ph-img cx__ph cx-rise"); f.appendChild(el("span", null, l)); row.appendChild(f); }); wrap.appendChild(row); }
   });
