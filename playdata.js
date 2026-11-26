@@ -2,7 +2,7 @@
    Same fields as the old Passion projects list: title, line, kind (and later img, href). */
 var PLAY = [
   { title: "Salo Salo Events", kind: "Vibe-coded web app", cover: "salo", href: "https://salosaloevents.com",
-    video: { src: "images/playground/salo-salo-events-demo.mp4", poster: "images/playground/salo-salo-events-demo-poster.webp", alt: "Salo Salo Events demo: searching for caterers in Batangas, saving favourites, and a supplier page with photos, prices and packages" },
+    video: { src: "images/playground/salo-salo-events-demo-v3.mp4", poster: "images/playground/salo-salo-events-demo-v3-poster.webp", alt: "Salo Salo Events demo: searching for caterers in Batangas, saving favourites, and a supplier page with photos, prices and packages" },
     line: "A directory of party and event suppliers in Metro Manila, Cavite, Laguna and Batangas, with prices shown upfront.",
     status: "Waitlist open, launching early 2027", tools: "Next.js, Supabase, Netlify, Claude Code", year: "2026",
     concept: ["Salo Salo Events is one place to find suppliers for every kind of Filipino celebration, not just weddings. Families planning a debut, binyag, birthday or wedding can browse caterers, cake makers, hosts, photobooths, stylists and venues by category and province, see prices and packages upfront, and send an inquiry straight from a listing."],
